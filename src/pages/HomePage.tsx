@@ -1,4 +1,5 @@
 import Hero from '@/components/Hero'
+import Missions from '@/components/Missions'
 import About from '@/components/About'
 import Projects from '@/components/Projects'
 import Volunteer from '@/components/Volunteer'
@@ -20,6 +21,10 @@ export default function HomePage() {
     <>
       <section id="home">
         <Hero onNavigate={handleNavigate} />
+      </section>
+      
+      <section id="missions">
+        <Missions />
       </section>
       
       <section id="about">

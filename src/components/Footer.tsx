@@ -13,6 +13,7 @@ export default function Footer({ onNavigate }: FooterProps) {
   const settings = useSiteSettings()
   
   const quickLinks = [
+    { id: 'missions', label: 'Nos Missions' },
     { id: 'about', label: 'À Propos' },
     { id: 'projects', label: 'Nos Projets' },
     { id: 'volunteer', label: 'Devenir Volontaire' },

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { House, Users, Rocket, HandHeart, EnvelopeSimple, CurrencyDollar, List, Gauge } from '@phosphor-icons/react'
+import { House, Users, Rocket, HandHeart, EnvelopeSimple, CurrencyDollar, List, Gauge, Target } from '@phosphor-icons/react'
 import XalimaLogo from './XalimaLogo'
 import { useSiteSettings } from '@/hooks/use-site-settings'
 
@@ -32,6 +32,7 @@ export default function Header({ onNavigate }: HeaderProps) {
 
   const leftNavItems = [
     { id: 'home', label: 'Accueil', icon: House },
+    { id: 'missions', label: 'Nos Missions', icon: Target },
     { id: 'about', label: 'À Propos', icon: Users },
     { id: 'projects', label: 'Nos Projets', icon: Rocket },
   ]
