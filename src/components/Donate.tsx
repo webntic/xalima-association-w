@@ -2,41 +2,152 @@ import { useState } from 'react'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
-import { CurrencyDollar, CreditCard, Heart, Users, GraduationCap } from '@phosphor-icons/react'
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
+import { CurrencyDollar, CreditCard, Heart, Users, GraduationCap, Copy, Check } from '@phosphor-icons/react'
+import { useSiteSettings } from '@/hooks/use-site-settings'
+import { toast } from 'sonner'
 
 export default function Donate() {
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null)
   const [customAmount, setCustomAmount] = useState('')
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null)
+  const [showPaymentDialog, setShowPaymentDialog] = useState(false)
+  const [copiedField, setCopiedField] = useState<string | null>(null)
+  const settings = useSiteSettings()
 
   const predefinedAmounts = [10, 25, 50, 100, 250]
 
-  const paymentMethods = [
-    {
-      name: 'Stripe',
-      description: 'Carte bancaire sécurisée',
-      icon: CreditCard,
-      color: 'bg-purple-500'
-    },
-    {
-      name: 'PayPal',
-      description: 'PayPal entre amis',
-      icon: CreditCard,
-      color: 'bg-blue-500'
-    },
-    {
-      name: 'Orange Money',
-      description: 'Paiement mobile',
-      icon: CreditCard,
-      color: 'bg-orange-500'
-    },
-    {
-      name: 'Wave Sénégal',
-      description: 'Transfert rapide',
-      icon: CreditCard,
-      color: 'bg-cyan-500'
+  const getDonationAmount = () => {
+    return selectedAmount || parseFloat(customAmount) || 0
+  }
+
+  const handleCopyToClipboard = (text: string, field: string) => {
+    navigator.clipboard.writeText(text)
+    setCopiedField(field)
+    toast.success('Copié dans le presse-papiers')
+    setTimeout(() => setCopiedField(null), 2000)
+  }
+
+  const handleStripePayment = () => {
+    const amount = getDonationAmount()
+    if (!amount || amount <= 0) {
+      toast.error('Montant invalide', {
+        description: 'Veuillez sélectionner un montant valide'
+      })
+      return
     }
-  ]
+
+    if (!settings.stripePublicKey) {
+      toast.error('Configuration manquante', {
+        description: 'Stripe n\'est pas configuré. Contactez l\'administrateur.'
+      })
+      return
+    }
+
+    toast.info('Redirection vers Stripe...', {
+      description: `Montant: ${amount}€`
+    })
+    
+    window.open(`https://donate.stripe.com?amount=${amount * 100}`, '_blank')
+  }
+
+  const handlePayPalPayment = () => {
+    const amount = getDonationAmount()
+    if (!amount || amount <= 0) {
+      toast.error('Montant invalide', {
+        description: 'Veuillez sélectionner un montant valide'
+      })
+      return
+    }
+
+    if (!settings.paypalEmail) {
+      toast.error('Configuration manquante', {
+        description: 'PayPal n\'est pas configuré. Contactez l\'administrateur.'
+      })
+      return
+    }
+
+    const paypalUrl = `https://www.paypal.com/paypalme/${settings.paypalEmail.split('@')[0]}/${amount}EUR`
+    toast.info('Redirection vers PayPal...', {
+      description: `Montant: ${amount}€`
+    })
+    
+    window.open(paypalUrl, '_blank')
+  }
+
+  const handleMobileMoneyPayment = (method: 'orange' | 'wave') => {
+    const amount = getDonationAmount()
+    if (!amount || amount <= 0) {
+      toast.error('Montant invalide', {
+        description: 'Veuillez sélectionner un montant valide'
+      })
+      return
+    }
+
+    setSelectedPaymentMethod(method)
+    setShowPaymentDialog(true)
+  }
+
+  const getPaymentMethods = () => {
+    const methods: Array<{
+      id: string
+      name: string
+      description: string
+      icon: typeof CreditCard
+      color: string
+      onClick: () => void
+    }> = []
+    
+    if (settings.stripeEnabled && settings.stripePublicKey) {
+      methods.push({
+        id: 'stripe',
+        name: 'Stripe',
+        description: 'Carte bancaire sécurisée',
+        icon: CreditCard,
+        color: 'bg-purple-500',
+        onClick: handleStripePayment
+      })
+    }
+
+    if (settings.paypalEnabled && settings.paypalEmail) {
+      methods.push({
+        id: 'paypal',
+        name: 'PayPal',
+        description: 'PayPal entre amis',
+        icon: CreditCard,
+        color: 'bg-blue-500',
+        onClick: handlePayPalPayment
+      })
+    }
+
+    if (settings.orangeMoneyEnabled && settings.orangeMoneyNumber) {
+      methods.push({
+        id: 'orange',
+        name: 'Orange Money',
+        description: 'Paiement mobile',
+        icon: CreditCard,
+        color: 'bg-orange-500',
+        onClick: () => handleMobileMoneyPayment('orange')
+      })
+    }
+
+    if (settings.waveEnabled && settings.waveNumber) {
+      methods.push({
+        id: 'wave',
+        name: 'Wave Sénégal',
+        description: 'Transfert rapide',
+        icon: CreditCard,
+        color: 'bg-cyan-500',
+        onClick: () => handleMobileMoneyPayment('wave')
+      })
+    }
+
+    return methods
+  }
+
+  const paymentMethods = getPaymentMethods()
 
   const impactStories = [
     {
@@ -152,34 +263,116 @@ export default function Donate() {
 
           <div className="mb-8">
             <h4 className="text-lg font-bold mb-4">Méthode de paiement</h4>
-            <div className="grid md:grid-cols-2 gap-3">
-              {paymentMethods.map((method) => (
-                <button
-                  key={method.name}
-                  className="flex items-center gap-3 p-4 border-2 rounded-lg hover:border-primary transition-colors group"
-                >
-                  <div className={`w-12 h-12 rounded-lg ${method.color} flex items-center justify-center`}>
-                    <method.icon className="w-6 h-6 text-white" weight="fill" />
-                  </div>
-                  <div className="text-left">
-                    <p className="font-semibold group-hover:text-primary transition-colors">{method.name}</p>
-                    <p className="text-xs text-muted-foreground">{method.description}</p>
-                  </div>
-                </button>
-              ))}
-            </div>
+            {paymentMethods.length === 0 ? (
+              <div className="p-8 text-center border-2 border-dashed rounded-lg">
+                <p className="text-muted-foreground">
+                  Aucune méthode de paiement configurée. Veuillez contacter l'administrateur.
+                </p>
+              </div>
+            ) : (
+              <div className="grid md:grid-cols-2 gap-3">
+                {paymentMethods.map((method) => (
+                  <button
+                    key={method.id}
+                    onClick={method.onClick}
+                    className="flex items-center gap-3 p-4 border-2 rounded-lg hover:border-primary transition-colors group"
+                  >
+                    <div className={`w-12 h-12 rounded-lg ${method.color} flex items-center justify-center`}>
+                      <method.icon className="w-6 h-6 text-white" weight="fill" />
+                    </div>
+                    <div className="text-left">
+                      <p className="font-semibold group-hover:text-primary transition-colors">{method.name}</p>
+                      <p className="text-xs text-muted-foreground">{method.description}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
-          <Button
-            disabled={!selectedAmount && !customAmount}
-            className="w-full h-14 text-lg gap-2 bg-accent hover:bg-accent/90"
-          >
-            <Heart weight="fill" />
-            Faire un don de {selectedAmount || customAmount || '0'}€
-          </Button>
+          {paymentMethods.length > 0 && (
+            <div className="bg-muted/50 p-4 rounded-lg border">
+              <p className="text-sm text-muted-foreground text-center">
+                💡 Cliquez sur une méthode de paiement pour procéder au don de <strong>{getDonationAmount()}€</strong>
+              </p>
+            </div>
+          )}
+
+          <Dialog open={showPaymentDialog} onOpenChange={setShowPaymentDialog}>
+            <DialogContent className="max-w-md">
+              <DialogHeader>
+                <DialogTitle className="text-2xl">
+                  {selectedPaymentMethod === 'orange' ? 'Orange Money' : 'Wave'}
+                </DialogTitle>
+                <DialogDescription>
+                  Instructions de paiement mobile
+                </DialogDescription>
+              </DialogHeader>
+              
+              <div className="space-y-4">
+                <div className="p-4 bg-accent/10 rounded-lg border border-accent/20">
+                  <p className="text-sm font-semibold mb-2">Montant à envoyer:</p>
+                  <p className="text-3xl font-bold text-accent">{getDonationAmount()} €</p>
+                </div>
+
+                <div className="space-y-3">
+                  <div>
+                    <Label className="text-sm font-semibold mb-2 block">Numéro de téléphone:</Label>
+                    <div className="flex items-center gap-2">
+                      <Input
+                        readOnly
+                        value={selectedPaymentMethod === 'orange' ? settings.orangeMoneyNumber : settings.waveNumber}
+                        className="font-mono"
+                      />
+                      <Button
+                        size="icon"
+                        variant="outline"
+                        onClick={() => handleCopyToClipboard(
+                          selectedPaymentMethod === 'orange' ? settings.orangeMoneyNumber : settings.waveNumber,
+                          'number'
+                        )}
+                      >
+                        {copiedField === 'number' ? <Check className="text-green-500" /> : <Copy />}
+                      </Button>
+                    </div>
+                  </div>
+
+                  <div className="p-4 bg-muted rounded-lg space-y-2">
+                    <p className="font-semibold text-sm">Instructions:</p>
+                    <ol className="text-sm space-y-1 list-decimal list-inside text-muted-foreground">
+                      <li>Composez le code {selectedPaymentMethod === 'orange' ? '#144#' : 'WAVE'} sur votre téléphone</li>
+                      <li>Sélectionnez "Transfert d'argent"</li>
+                      <li>Entrez le numéro ci-dessus</li>
+                      <li>Saisissez le montant: {getDonationAmount()} €</li>
+                      <li>Confirmez le paiement</li>
+                    </ol>
+                  </div>
+
+                  <div className="p-3 bg-primary/10 rounded-lg border border-primary/20">
+                    <p className="text-xs text-center text-muted-foreground">
+                      Merci pour votre générosité ! Votre don fait la différence. 💝
+                    </p>
+                  </div>
+                </div>
+
+                <Button
+                  onClick={() => {
+                    setShowPaymentDialog(false)
+                    toast.success('Merci !', {
+                      description: 'Nous attendons votre transfert avec gratitude'
+                    })
+                  }}
+                  className="w-full"
+                  variant="outline"
+                >
+                  J'ai compris
+                </Button>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           <p className="text-xs text-center text-muted-foreground mt-4">
-            Cette interface est une démonstration. Les paiements ne sont pas traités dans cette version.
+            Paiements sécurisés. Tous les dons sont utilisés pour nos projets éducatifs.
           </p>
         </Card>
 

@@ -20,6 +20,15 @@ interface SiteSettings {
   youtubeUrl: string
   tiktokUrl: string
   logoUrl: string
+  headerHeight: number
+  stripePublicKey: string
+  stripeEnabled: boolean
+  paypalEmail: string
+  paypalEnabled: boolean
+  orangeMoneyNumber: string
+  orangeMoneyEnabled: boolean
+  waveNumber: string
+  waveEnabled: boolean
 }
 
 const defaultSettings: SiteSettings = {
@@ -33,7 +42,16 @@ const defaultSettings: SiteSettings = {
   instagramUrl: 'https://instagram.com/xalima',
   youtubeUrl: 'https://youtube.com/@xalima',
   tiktokUrl: 'https://tiktok.com/@xalima',
-  logoUrl: ''
+  logoUrl: '',
+  headerHeight: 80,
+  stripePublicKey: '',
+  stripeEnabled: false,
+  paypalEmail: '',
+  paypalEnabled: false,
+  orangeMoneyNumber: '',
+  orangeMoneyEnabled: false,
+  waveNumber: '',
+  waveEnabled: false
 }
 
 export default function SiteSettingsManager() {
@@ -311,6 +329,174 @@ export default function SiteSettingsManager() {
                 placeholder="https://tiktok.com/@xalima"
               />
             </div>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Apparence du Header</CardTitle>
+          <CardDescription>
+            Personnalisez la hauteur du header du site
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <Label htmlFor="headerHeight">Hauteur du header (px)</Label>
+            <div className="flex items-center gap-4">
+              <Input
+                id="headerHeight"
+                type="number"
+                min="60"
+                max="200"
+                value={localSettings.headerHeight}
+                onChange={(e) => handleChange('headerHeight', e.target.value)}
+                className="max-w-[200px]"
+              />
+              <span className="text-sm text-muted-foreground">
+                Recommandé: 80-120px
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Valeur actuelle: {localSettings.headerHeight}px
+            </p>
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card>
+        <CardHeader>
+          <CardTitle>Méthodes de paiement</CardTitle>
+          <CardDescription>
+            Configurez les méthodes de paiement pour les dons
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          <div className="space-y-4 p-4 border rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-semibold">Stripe</h4>
+                <p className="text-sm text-muted-foreground">Paiements par carte bancaire</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="stripeEnabled" className="text-sm">Activé</Label>
+                <input
+                  id="stripeEnabled"
+                  type="checkbox"
+                  checked={localSettings.stripeEnabled}
+                  onChange={(e) => setLocalSettings(prev => ({ ...prev, stripeEnabled: e.target.checked }))}
+                  className="w-4 h-4"
+                />
+              </div>
+            </div>
+            {localSettings.stripeEnabled && (
+              <div className="space-y-2">
+                <Label htmlFor="stripePublicKey">Clé publique Stripe</Label>
+                <Input
+                  id="stripePublicKey"
+                  type="text"
+                  value={localSettings.stripePublicKey}
+                  onChange={(e) => handleChange('stripePublicKey', e.target.value)}
+                  placeholder="pk_test_..."
+                />
+                <p className="text-xs text-muted-foreground">
+                  Obtenez votre clé sur <a href="https://dashboard.stripe.com/apikeys" target="_blank" rel="noopener noreferrer" className="underline">dashboard.stripe.com</a>
+                </p>
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-4 p-4 border rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-semibold">PayPal</h4>
+                <p className="text-sm text-muted-foreground">Paiements PayPal entre amis</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="paypalEnabled" className="text-sm">Activé</Label>
+                <input
+                  id="paypalEnabled"
+                  type="checkbox"
+                  checked={localSettings.paypalEnabled}
+                  onChange={(e) => setLocalSettings(prev => ({ ...prev, paypalEnabled: e.target.checked }))}
+                  className="w-4 h-4"
+                />
+              </div>
+            </div>
+            {localSettings.paypalEnabled && (
+              <div className="space-y-2">
+                <Label htmlFor="paypalEmail">Email PayPal</Label>
+                <Input
+                  id="paypalEmail"
+                  type="email"
+                  value={localSettings.paypalEmail}
+                  onChange={(e) => handleChange('paypalEmail', e.target.value)}
+                  placeholder="contact@xalima.org"
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-4 p-4 border rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-semibold">Orange Money</h4>
+                <p className="text-sm text-muted-foreground">Paiement mobile Orange Money</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="orangeMoneyEnabled" className="text-sm">Activé</Label>
+                <input
+                  id="orangeMoneyEnabled"
+                  type="checkbox"
+                  checked={localSettings.orangeMoneyEnabled}
+                  onChange={(e) => setLocalSettings(prev => ({ ...prev, orangeMoneyEnabled: e.target.checked }))}
+                  className="w-4 h-4"
+                />
+              </div>
+            </div>
+            {localSettings.orangeMoneyEnabled && (
+              <div className="space-y-2">
+                <Label htmlFor="orangeMoneyNumber">Numéro Orange Money</Label>
+                <Input
+                  id="orangeMoneyNumber"
+                  type="tel"
+                  value={localSettings.orangeMoneyNumber}
+                  onChange={(e) => handleChange('orangeMoneyNumber', e.target.value)}
+                  placeholder="+221 XX XXX XX XX"
+                />
+              </div>
+            )}
+          </div>
+
+          <div className="space-y-4 p-4 border rounded-lg">
+            <div className="flex items-center justify-between">
+              <div>
+                <h4 className="font-semibold">Wave</h4>
+                <p className="text-sm text-muted-foreground">Transfert Wave Sénégal</p>
+              </div>
+              <div className="flex items-center gap-2">
+                <Label htmlFor="waveEnabled" className="text-sm">Activé</Label>
+                <input
+                  id="waveEnabled"
+                  type="checkbox"
+                  checked={localSettings.waveEnabled}
+                  onChange={(e) => setLocalSettings(prev => ({ ...prev, waveEnabled: e.target.checked }))}
+                  className="w-4 h-4"
+                />
+              </div>
+            </div>
+            {localSettings.waveEnabled && (
+              <div className="space-y-2">
+                <Label htmlFor="waveNumber">Numéro Wave</Label>
+                <Input
+                  id="waveNumber"
+                  type="tel"
+                  value={localSettings.waveNumber}
+                  onChange={(e) => handleChange('waveNumber', e.target.value)}
+                  placeholder="+221 XX XXX XX XX"
+                />
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

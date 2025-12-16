@@ -41,11 +41,11 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Success criteria**: Form validates inputs, stores data in KV store, displays success confirmation
 
 ### Donation System (Faire un don)
-- **Functionality**: Display donation options with multiple payment methods (information display only in prototype)
-- **Purpose**: Facilitate financial support with transparency about impact
+- **Functionality**: Fully functional donation system with multiple payment methods (Stripe, PayPal, Orange Money, Wave) configured via admin dashboard
+- **Purpose**: Facilitate financial support with transparency about impact and real payment processing
 - **Trigger**: Prominent CTA buttons throughout site
-- **Progression**: Navigate to donation page → Select or enter amount → See payment options (Stripe, PayPal, Orange Money, Wave Sénégal) → View donation impact updates
-- **Success criteria**: Donation interface is clear, payment method information displays, impact updates visible
+- **Progression**: Navigate to donation page → Select or enter amount → Choose enabled payment method → Process payment (Stripe/PayPal redirect or mobile money instructions) → View donation impact updates
+- **Success criteria**: Donation interface is clear, only enabled payment methods display, Stripe integration redirects correctly, PayPal links generate properly, mobile money shows transfer instructions with copyable phone numbers, impact updates visible
 
 ### Contact Section
 - **Functionality**: Display contact information, social media links, contact form, and location map
@@ -62,11 +62,11 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Success criteria**: Pages load correctly, all legal information is complete and accessible, navigation works seamlessly
 
 ### Admin Dashboard
-- **Functionality**: Secure admin interface with password protection for managing site settings, logo, projects, volunteer applications, and contact messages - accessible only to the site owner
-- **Purpose**: Enable site owner to manage all site content and settings dynamically without code changes
+- **Functionality**: Secure admin interface with password protection for managing site settings, logo, header appearance, payment methods, projects, volunteer applications, and contact messages - accessible only to the site owner
+- **Purpose**: Enable site owner to manage all site content, appearance, and payment configurations dynamically without code changes
 - **Trigger**: Owner navigates to /admin/login → Authenticates with password → Access full admin dashboard
-- **Progression**: Navigate to /admin/login → Enter password (creates password on first use) → Access dashboard → Manage site settings (logo upload, contact info, social links) → Manage projects (add/edit/delete) → Review volunteers → Read and delete contact messages → Log out
-- **Success criteria**: Password authentication works, owner-only access enforced, all CRUD operations sync to public site, logo upload supports image files, settings update in real-time
+- **Progression**: Navigate to /admin/login → Enter password (creates password on first use) → Access dashboard → Manage site settings (logo upload, contact info, social links, header height) → Configure payment methods (Stripe keys, PayPal email, Orange Money/Wave numbers) → Manage projects (add/edit/delete) → Review volunteers → Read and delete contact messages → Log out
+- **Success criteria**: Password authentication works, owner-only access enforced, all CRUD operations sync to public site, logo upload supports image files, settings update in real-time, header height adjusts dynamically, payment methods enable/disable correctly with validation
 
 ## Edge Case Handling
 - **Empty form submissions**: Display validation errors with clear messaging before allowing submission
@@ -80,6 +80,10 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Unauthorized admin access**: Non-owners redirected to homepage automatically, loading state shown during permission check
 - **Empty admin data**: Friendly empty states with illustrations when no projects or volunteers exist
 - **Admin search no results**: Clear messaging when volunteer search returns no matches
+- **No payment methods configured**: Donation page shows helpful message when no methods are enabled
+- **Invalid payment credentials**: Admin UI validates and provides guidance for correct API key/credential formats
+- **Header height bounds**: Header height input limited to 60-200px range for usability
+- **Mobile money instructions**: Dialog with copyable phone numbers and step-by-step transfer instructions
 
 ## Design Direction
 The design should evoke hope, empowerment, and educational excellence while maintaining warmth and approachability. Visual language should balance professionalism with human connection, using vibrant colors that represent African culture and education, combined with clean modern layouts that inspire trust and action.

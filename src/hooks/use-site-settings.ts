@@ -12,6 +12,15 @@ export interface SiteSettings {
   youtubeUrl: string
   tiktokUrl: string
   logoUrl: string
+  headerHeight: number
+  stripePublicKey: string
+  stripeEnabled: boolean
+  paypalEmail: string
+  paypalEnabled: boolean
+  orangeMoneyNumber: string
+  orangeMoneyEnabled: boolean
+  waveNumber: string
+  waveEnabled: boolean
 }
 
 const defaultSettings: SiteSettings = {
@@ -25,7 +34,16 @@ const defaultSettings: SiteSettings = {
   instagramUrl: 'https://instagram.com/xalima',
   youtubeUrl: 'https://youtube.com/@xalima',
   tiktokUrl: 'https://tiktok.com/@xalima',
-  logoUrl: ''
+  logoUrl: '',
+  headerHeight: 80,
+  stripePublicKey: '',
+  stripeEnabled: false,
+  paypalEmail: '',
+  paypalEnabled: false,
+  orangeMoneyNumber: '',
+  orangeMoneyEnabled: false,
+  waveNumber: '',
+  waveEnabled: false
 }
 
 export function useSiteSettings() {

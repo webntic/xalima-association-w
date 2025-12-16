@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { House, Users, Rocket, HandHeart, EnvelopeSimple, CurrencyDollar, List, Gauge } from '@phosphor-icons/react'
 import XalimaLogo from './XalimaLogo'
+import { useSiteSettings } from '@/hooks/use-site-settings'
 
 interface HeaderProps {
   onNavigate: (section: string) => void
@@ -14,6 +15,7 @@ export default function Header({ onNavigate }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
   const [isOwner, setIsOwner] = useState(false)
   const navigate = useNavigate()
+  const settings = useSiteSettings()
 
   useEffect(() => {
     const checkOwnership = async () => {
@@ -49,7 +51,7 @@ export default function Header({ onNavigate }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex h-20 items-center justify-between">
+        <div className="flex items-center justify-between" style={{ height: `${settings.headerHeight}px` }}>
           <button
             onClick={() => handleNavigate('home')}
             className="flex items-center group transition-transform hover:scale-105"
