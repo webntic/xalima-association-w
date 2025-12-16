@@ -5,7 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { toast } from 'sonner'
-import { FloppyDisk, Image as ImageIcon, Trash } from '@phosphor-icons/react'
+import { FloppyDisk, Image as ImageIcon, Trash, AlignLeft, AlignCenterHorizontal, AlignRight } from '@phosphor-icons/react'
 import { useKV } from '@github/spark/hooks'
 
 interface SiteSettings {
@@ -21,6 +21,8 @@ interface SiteSettings {
   tiktokUrl: string
   logoUrl: string
   logoSize: number
+  logoPosition: 'left' | 'center' | 'right'
+  footerLogoPosition: 'left' | 'center' | 'right'
   headerHeight: number
   stripePublicKey: string
   stripeEnabled: boolean
@@ -45,6 +47,8 @@ const defaultSettings: SiteSettings = {
   tiktokUrl: 'https://tiktok.com/@xalima',
   logoUrl: '',
   logoSize: 48,
+  logoPosition: 'left',
+  footerLogoPosition: 'left',
   headerHeight: 80,
   stripePublicKey: '',
   stripeEnabled: false,
@@ -214,6 +218,78 @@ export default function SiteSettingsManager() {
             </div>
             <p className="text-xs text-muted-foreground mt-2">
               Valeur actuelle: {localSettings.logoSize}px (hauteur)
+            </p>
+          </div>
+
+          <div className="space-y-2 pt-4 border-t">
+            <Label>Position du logo dans le header</Label>
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant={localSettings.logoPosition === 'left' ? 'default' : 'outline'}
+                onClick={() => setLocalSettings(prev => ({ ...prev, logoPosition: 'left' }))}
+                className="flex-1 gap-2"
+              >
+                <AlignLeft />
+                Gauche
+              </Button>
+              <Button
+                type="button"
+                variant={localSettings.logoPosition === 'center' ? 'default' : 'outline'}
+                onClick={() => setLocalSettings(prev => ({ ...prev, logoPosition: 'center' }))}
+                className="flex-1 gap-2"
+              >
+                <AlignCenterHorizontal />
+                Centre
+              </Button>
+              <Button
+                type="button"
+                variant={localSettings.logoPosition === 'right' ? 'default' : 'outline'}
+                onClick={() => setLocalSettings(prev => ({ ...prev, logoPosition: 'right' }))}
+                className="flex-1 gap-2"
+              >
+                <AlignRight />
+                Droite
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Alignement du logo dans le header sur les écrans de bureau
+            </p>
+          </div>
+
+          <div className="space-y-2 pt-4 border-t">
+            <Label>Position du logo dans le footer</Label>
+            <div className="flex gap-2">
+              <Button
+                type="button"
+                variant={localSettings.footerLogoPosition === 'left' ? 'default' : 'outline'}
+                onClick={() => setLocalSettings(prev => ({ ...prev, footerLogoPosition: 'left' }))}
+                className="flex-1 gap-2"
+              >
+                <AlignLeft />
+                Gauche
+              </Button>
+              <Button
+                type="button"
+                variant={localSettings.footerLogoPosition === 'center' ? 'default' : 'outline'}
+                onClick={() => setLocalSettings(prev => ({ ...prev, footerLogoPosition: 'center' }))}
+                className="flex-1 gap-2"
+              >
+                <AlignCenterHorizontal />
+                Centre
+              </Button>
+              <Button
+                type="button"
+                variant={localSettings.footerLogoPosition === 'right' ? 'default' : 'outline'}
+                onClick={() => setLocalSettings(prev => ({ ...prev, footerLogoPosition: 'right' }))}
+                className="flex-1 gap-2"
+              >
+                <AlignRight />
+                Droite
+              </Button>
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Alignement du logo et de la description dans le footer
             </p>
           </div>
         </CardContent>

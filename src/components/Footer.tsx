@@ -27,11 +27,22 @@ export default function Footer({ onNavigate }: FooterProps) {
     { name: 'TikTok', icon: TiktokLogo, url: settings.tiktokUrl }
   ]
 
+  const getLogoAlignClass = () => {
+    switch (settings.footerLogoPosition) {
+      case 'center':
+        return 'items-center text-center'
+      case 'right':
+        return 'items-end text-right'
+      default:
+        return 'items-start text-left'
+    }
+  }
+
   return (
     <footer className="bg-card border-t">
       <div className="container mx-auto px-6 lg:px-12 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
-          <div>
+          <div className={`flex flex-col ${getLogoAlignClass()}`}>
             <div className="mb-4">
               <XalimaLogo size="sm" />
             </div>

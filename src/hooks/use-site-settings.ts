@@ -13,6 +13,8 @@ export interface SiteSettings {
   tiktokUrl: string
   logoUrl: string
   logoSize: number
+  logoPosition: 'left' | 'center' | 'right'
+  footerLogoPosition: 'left' | 'center' | 'right'
   headerHeight: number
   stripePublicKey: string
   stripeEnabled: boolean
@@ -37,6 +39,8 @@ const defaultSettings: SiteSettings = {
   tiktokUrl: 'https://tiktok.com/@xalima',
   logoUrl: '',
   logoSize: 48,
+  logoPosition: 'left',
+  footerLogoPosition: 'left',
   headerHeight: 80,
   stripePublicKey: '',
   stripeEnabled: false,

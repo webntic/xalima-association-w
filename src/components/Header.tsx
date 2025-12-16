@@ -48,13 +48,33 @@ export default function Header({ onNavigate }: HeaderProps) {
     setIsOpen(false)
   }
 
+  const getLogoJustifyClass = () => {
+    switch (settings.logoPosition) {
+      case 'center':
+        return 'justify-center'
+      case 'right':
+        return 'justify-end'
+      default:
+        return 'justify-start'
+    }
+  }
+
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container mx-auto px-6 lg:px-12">
         <div className="flex items-center justify-between" style={{ height: `${settings.headerHeight}px` }}>
+          <div className={`flex-1 hidden md:flex ${getLogoJustifyClass()}`}>
+            <button
+              onClick={() => handleNavigate('home')}
+              className="flex items-center group transition-transform hover:scale-105"
+            >
+              <XalimaLogo size="md" />
+            </button>
+          </div>
+
           <button
             onClick={() => handleNavigate('home')}
-            className="flex items-center group transition-transform hover:scale-105"
+            className="flex md:hidden items-center group transition-transform hover:scale-105"
           >
             <XalimaLogo size="md" />
           </button>
