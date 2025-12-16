@@ -3,7 +3,7 @@ import { useKV } from '@github/spark/hooks'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
-import { CheckCircle, Circle } from '@phosphor-icons/react'
+import { CheckCircle, Circle, Image as ImageIcon } from '@phosphor-icons/react'
 
 interface Project {
   id: string
@@ -15,6 +15,7 @@ interface Project {
   goal?: string
   impact?: string
   year?: string
+  images?: string[]
   createdAt: string
 }
 
@@ -52,8 +53,24 @@ export default function Projects() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {ongoingProjects.map((project) => (
                   <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="h-48 bg-gradient-to-br from-primary to-primary/60 relative">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+                    <div className="h-48 bg-gradient-to-br from-primary to-primary/60 relative overflow-hidden">
+                      {project.images && project.images.length > 0 ? (
+                        <>
+                          <img
+                            src={project.images[0]}
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                          />
+                          {project.images.length > 1 && (
+                            <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                              <ImageIcon className="w-3 h-3" weight="fill" />
+                              {project.images.length}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+                      )}
                     </div>
                     <div className="p-6 space-y-4">
                       <div className="flex items-start justify-between gap-2">
@@ -101,8 +118,24 @@ export default function Projects() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {completedProjects.map((project) => (
                   <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="h-48 bg-gradient-to-br from-secondary to-secondary/60 relative">
-                      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+                    <div className="h-48 bg-gradient-to-br from-secondary to-secondary/60 relative overflow-hidden">
+                      {project.images && project.images.length > 0 ? (
+                        <>
+                          <img
+                            src={project.images[0]}
+                            alt={project.title}
+                            className="w-full h-full object-cover"
+                          />
+                          {project.images.length > 1 && (
+                            <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                              <ImageIcon className="w-3 h-3" weight="fill" />
+                              {project.images.length}
+                            </div>
+                          )}
+                        </>
+                      ) : (
+                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+                      )}
                       <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
                         <CheckCircle weight="fill" className="w-4 h-4" />
                         Terminé

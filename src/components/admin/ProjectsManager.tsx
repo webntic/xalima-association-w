@@ -8,7 +8,7 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog'
 import { toast } from 'sonner'
-import { Plus, Pencil, Trash, CheckCircle, Clock, Rocket } from '@phosphor-icons/react'
+import { Plus, Pencil, Trash, CheckCircle, Clock, Rocket, Image as ImageIcon, X } from '@phosphor-icons/react'
 import { Progress } from '@/components/ui/progress'
 
 interface Project {
@@ -21,6 +21,7 @@ interface Project {
   goal?: string
   impact?: string
   year?: string
+  images?: string[]
   createdAt: string
 }
 
@@ -29,6 +30,7 @@ export default function ProjectsManager() {
   const [isAddDialogOpen, setIsAddDialogOpen] = useState(false)
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false)
   const [editingProject, setEditingProject] = useState<Project | null>(null)
+  const [uploadedImages, setUploadedImages] = useState<string[]>([])
 
   const [formData, setFormData] = useState({
     title: '',
@@ -52,6 +54,49 @@ export default function ProjectsManager() {
       impact: '',
       year: new Date().getFullYear().toString()
     })
+    setUploadedImages([])
+  }
+
+  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (!files) return
+
+    const maxSize = 5 * 1024 * 1024
+    const validFiles: File[] = []
+
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i]
+      
+      if (!file.type.startsWith('image/')) {
+        toast.error(`${file.name} n'est pas une image valide`)
+        continue
+      }
+
+      if (file.size > maxSize) {
+        toast.error(`${file.name} dépasse la taille maximale de 5MB`)
+        continue
+      }
+
+      validFiles.push(file)
+    }
+
+    validFiles.forEach((file) => {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        const base64String = reader.result as string
+        setUploadedImages((current) => [...current, base64String])
+      }
+      reader.readAsDataURL(file)
+    })
+
+    if (validFiles.length > 0) {
+      toast.success(`${validFiles.length} image(s) ajoutée(s)`)
+    }
+  }
+
+  const removeImage = (index: number) => {
+    setUploadedImages((current) => current.filter((_, i) => i !== index))
+    toast.success('Image supprimée')
   }
 
   const handleAddProject = () => {
@@ -70,6 +115,7 @@ export default function ProjectsManager() {
       ...(formData.status === 'ongoing' && formData.goal && { goal: formData.goal }),
       ...(formData.status === 'completed' && formData.impact && { impact: formData.impact }),
       ...(formData.status === 'completed' && formData.year && { year: formData.year }),
+      ...(uploadedImages.length > 0 && { images: uploadedImages }),
       createdAt: new Date().toISOString()
     }
 
@@ -97,7 +143,8 @@ export default function ProjectsManager() {
               ...(formData.status === 'ongoing' && formData.funds && { funds: formData.funds }),
               ...(formData.status === 'ongoing' && formData.goal && { goal: formData.goal }),
               ...(formData.status === 'completed' && formData.impact && { impact: formData.impact }),
-              ...(formData.status === 'completed' && formData.year && { year: formData.year })
+              ...(formData.status === 'completed' && formData.year && { year: formData.year }),
+              ...(uploadedImages.length > 0 && { images: uploadedImages })
             }
           : p
       )
@@ -127,6 +174,7 @@ export default function ProjectsManager() {
       impact: project.impact || '',
       year: project.year || new Date().getFullYear().toString()
     })
+    setUploadedImages(project.images || [])
     setIsEditDialogOpen(true)
   }
 
@@ -167,6 +215,59 @@ export default function ProjectsManager() {
             <SelectItem value="completed">Terminé</SelectItem>
           </SelectContent>
         </Select>
+      </div>
+
+      <div className="space-y-2">
+        <Label htmlFor="images">Photos du projet</Label>
+        <div className="space-y-3">
+          <div className="flex items-center gap-2">
+            <Input
+              id="images"
+              type="file"
+              accept="image/*"
+              multiple
+              onChange={handleImageUpload}
+              className="cursor-pointer"
+            />
+            <Button
+              type="button"
+              variant="outline"
+              size="icon"
+              onClick={() => {
+                const input = document.getElementById('images') as HTMLInputElement
+                if (input) input.value = ''
+              }}
+            >
+              <X className="w-4 h-4" />
+            </Button>
+          </div>
+          <p className="text-xs text-muted-foreground">
+            Formats acceptés: JPG, PNG, GIF. Taille max: 5MB par image. Plusieurs images possibles.
+          </p>
+          
+          {uploadedImages.length > 0 && (
+            <div className="grid grid-cols-3 gap-3 pt-2">
+              {uploadedImages.map((image, index) => (
+                <div key={index} className="relative group aspect-square">
+                  <img
+                    src={image}
+                    alt={`Preview ${index + 1}`}
+                    className="w-full h-full object-cover rounded-lg border-2 border-border"
+                  />
+                  <Button
+                    type="button"
+                    size="icon"
+                    variant="destructive"
+                    className="absolute top-1 right-1 w-6 h-6 opacity-0 group-hover:opacity-100 transition-opacity"
+                    onClick={() => removeImage(index)}
+                  >
+                    <X className="w-3 h-3" />
+                  </Button>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
       </div>
 
       {formData.status === 'ongoing' && (
@@ -272,6 +373,23 @@ export default function ProjectsManager() {
                   ? 'from-accent to-accent/60' 
                   : 'from-secondary to-secondary/60'
               }`} />
+              
+              {project.images && project.images.length > 0 && (
+                <div className="relative aspect-video overflow-hidden bg-muted">
+                  <img
+                    src={project.images[0]}
+                    alt={project.title}
+                    className="w-full h-full object-cover"
+                  />
+                  {project.images.length > 1 && (
+                    <div className="absolute bottom-2 right-2 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                      <ImageIcon className="w-3 h-3" weight="fill" />
+                      {project.images.length}
+                    </div>
+                  )}
+                </div>
+              )}
+              
               <div className="p-6 space-y-4">
                 <div className="flex items-start justify-between gap-4">
                   <div className="flex-1">
