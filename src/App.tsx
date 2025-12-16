@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import HomePage from './pages/HomePage'
 import LegalNoticePage from './pages/LegalNoticePage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
+import AdminDashboard from './pages/AdminDashboard'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -42,20 +43,23 @@ function AppContent() {
     navigate(path)
   }
 
+  const isAdminRoute = location.pathname.startsWith('/admin')
+
   return (
     <div className="min-h-screen flex flex-col">
       <ScrollToTop />
-      <Header onNavigate={handleNavigate} currentSection="home" />
+      {!isAdminRoute && <Header onNavigate={handleNavigate} currentSection="home" />}
       
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/mentions-legales" element={<LegalNoticePage />} />
           <Route path="/politique-de-confidentialite" element={<PrivacyPolicyPage />} />
+          <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>
       
-      <Footer onNavigate={handleNavigate} onLegalNavigate={handleLegalNavigate} />
+      {!isAdminRoute && <Footer onNavigate={handleNavigate} onLegalNavigate={handleLegalNavigate} />}
       <Toaster />
     </div>
   )

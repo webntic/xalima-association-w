@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
-import { House, Users, Rocket, HandHeart, EnvelopeSimple, CurrencyDollar, List } from '@phosphor-icons/react'
+import { House, Users, Rocket, HandHeart, EnvelopeSimple, CurrencyDollar, List, Gauge } from '@phosphor-icons/react'
 
 interface HeaderProps {
   onNavigate: (section: string) => void
@@ -10,6 +11,21 @@ interface HeaderProps {
 
 export default function Header({ onNavigate }: HeaderProps) {
   const [isOpen, setIsOpen] = useState(false)
+  const [isOwner, setIsOwner] = useState(false)
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const checkOwnership = async () => {
+      try {
+        const user = await window.spark.user()
+        setIsOwner(user?.isOwner || false)
+      } catch {
+        setIsOwner(false)
+      }
+    }
+
+    checkOwnership()
+  }, [])
 
   const navItems = [
     { id: 'home', label: 'Accueil', icon: House },
@@ -21,6 +37,11 @@ export default function Header({ onNavigate }: HeaderProps) {
 
   const handleNavigate = (section: string) => {
     onNavigate(section)
+    setIsOpen(false)
+  }
+
+  const handleAdminClick = () => {
+    navigate('/admin')
     setIsOpen(false)
   }
 
@@ -53,6 +74,16 @@ export default function Header({ onNavigate }: HeaderProps) {
                 {item.label}
               </Button>
             ))}
+            {isOwner && (
+              <Button
+                variant="outline"
+                onClick={handleAdminClick}
+                className="gap-2"
+              >
+                <Gauge />
+                Admin
+              </Button>
+            )}
             <Button
               onClick={() => handleNavigate('donate')}
               className="ml-4 gap-2 bg-accent hover:bg-accent/90"
@@ -90,6 +121,16 @@ export default function Header({ onNavigate }: HeaderProps) {
                     {item.label}
                   </Button>
                 ))}
+                {isOwner && (
+                  <Button
+                    variant="outline"
+                    onClick={handleAdminClick}
+                    className="justify-start gap-3 h-12"
+                  >
+                    <Gauge className="h-5 w-5" />
+                    Admin
+                  </Button>
+                )}
                 <Button
                   onClick={() => handleNavigate('donate')}
                   className="gap-3 h-12 bg-accent hover:bg-accent/90 mt-4"

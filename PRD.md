@@ -8,7 +8,7 @@ A modern, impactful website for Xalima, an educational nonprofit association ded
 3. **Accessible** - Intuitive navigation and inclusive design ensures everyone can engage with Xalima's mission
 
 **Complexity Level**: Light Application (multiple features with basic state)
-This is a multi-page nonprofit website with React Router navigation, legal pages (privacy policy and legal notice), forms, dynamic content displays, and state management for navigation and user interactions.
+This is a multi-page nonprofit website with React Router navigation, legal pages (privacy policy and legal notice), forms, dynamic content displays, state management for navigation and user interactions, and an admin dashboard for content management.
 
 ## Essential Features
 
@@ -61,6 +61,13 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Progression**: Click footer link → Navigate to dedicated page → Read legal information → Navigate back via header
 - **Success criteria**: Pages load correctly, all legal information is complete and accessible, navigation works seamlessly
 
+### Admin Dashboard
+- **Functionality**: Secure admin interface for managing projects and volunteer applications, accessible only to the site owner
+- **Purpose**: Enable site owner to manage content dynamically without code changes
+- **Trigger**: Owner clicks "Admin" button in header navigation (visible only to authenticated owner)
+- **Progression**: Click Admin → Verify ownership → View dashboard overview (stats cards) → Manage projects (add/edit/delete ongoing and completed projects) → Review volunteer applications (view details, search, delete)
+- **Success criteria**: Owner-only access enforced, projects sync to public display, volunteer data displays accurately, CRUD operations work smoothly
+
 ## Edge Case Handling
 - **Empty form submissions**: Display validation errors with clear messaging before allowing submission
 - **Long volunteer descriptions**: Textarea with character limit and counter to prevent overflow
@@ -70,6 +77,9 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Multilingual switching**: Default to French with clear language selector (prototype shows UI structure)
 - **Direct legal page access**: Legal pages accessible directly via URL, with header navigation intact
 - **Navigation from legal pages**: Header logo and menu allow return to home page with smooth section scrolling
+- **Unauthorized admin access**: Non-owners redirected to homepage automatically, loading state shown during permission check
+- **Empty admin data**: Friendly empty states with illustrations when no projects or volunteers exist
+- **Admin search no results**: Clear messaging when volunteer search returns no matches
 
 ## Design Direction
 The design should evoke hope, empowerment, and educational excellence while maintaining warmth and approachability. Visual language should balance professionalism with human connection, using vibrant colors that represent African culture and education, combined with clean modern layouts that inspire trust and action.
@@ -108,16 +118,20 @@ Animations should create a sense of growth, progress, and forward momentum while
 ## Component Selection
 
 **Components**:
-- **Card**: Project showcases, service offerings, and quick navigation links from homepage - customized with hover lift effect (4px translate-y)
-- **Button**: CTAs throughout site - Primary variant for donations (coral accent), Secondary for navigation actions, Outline for tertiary actions
-- **Form + Input + Label + Textarea**: Volunteer registration and contact forms - increased padding for touch-friendliness
+- **Card**: Project showcases, service offerings, quick navigation links, admin stats, and volunteer application cards - customized with hover lift effect (4px translate-y)
+- **Button**: CTAs throughout site - Primary variant for donations (coral accent), Secondary for navigation actions, Outline for tertiary actions, Icon variants for admin actions
+- **Form + Input + Label + Textarea**: Volunteer registration, contact forms, and admin project creation - increased padding for touch-friendliness
 - **Carousel**: Hero banner with embla-carousel-react for motivational imagery - auto-play enabled with 5s intervals
 - **Progress**: Project progress thermometers - customized with warm yellow fill and percentage labels
 - **Separator**: Visual dividers between major sections and footer sections - subtle with reduced opacity
 - **Sheet**: Mobile navigation menu - slides in from left with backdrop
-- **Tabs**: Toggle between completed/ongoing projects - underline indicator animation
-- **Toast (Sonner)**: Form submission confirmations and error messages - positioned top-right
-- **React Router**: Multi-page navigation with smooth transitions and scroll-to-top behavior
+- **Tabs**: Toggle between completed/ongoing projects and admin dashboard sections - underline indicator animation
+- **Toast (Sonner)**: Form submission confirmations, error messages, and admin action feedback - positioned top-right
+- **React Router**: Multi-page navigation with smooth transitions, scroll-to-top behavior, and protected admin route
+- **Dialog**: Admin project creation/editing forms and volunteer detail views - modal overlays with backdrop
+- **Badge**: Status indicators in admin dashboard (submission dates, project status)
+- **Select**: Dropdown for project status selection in admin forms
+- **Spinner**: Loading state indicator for admin authentication check
 
 **Customizations**:
 - Custom hero section component with overlaid text and gradient overlay on carousel images
@@ -133,10 +147,11 @@ Animations should create a sense of growth, progress, and forward momentum while
 - **Cards**: Default with subtle shadow, hover with elevated shadow and slight lift, active/selected with border highlight
 
 **Icon Selection**:
-- **Navigation**: House (home), Users (about), Rocket (projects), HandHeart (volunteer), EnvelopeSimple (contact), CurrencyDollar (donate)
+- **Navigation**: House (home), Users (about), Rocket (projects), HandHeart (volunteer), EnvelopeSimple (contact), CurrencyDollar (donate), Gauge (admin dashboard)
 - **Social Media**: FacebookLogo, InstagramLogo, YoutubeLogo, TiktokLogo
 - **Forms**: User, Envelope, Phone, MapPin, Briefcase, Calendar, Check (success), Warning (validation)
-- **Actions**: ArrowRight (CTAs), CaretDown (dropdowns), X (close mobile menu)
+- **Actions**: ArrowRight (CTAs), CaretDown (dropdowns), X (close mobile menu), ArrowLeft (back to site)
+- **Admin**: Plus (add new), Pencil (edit), Trash (delete), Eye (view details), MagnifyingGlass (search), CheckCircle (completed), Clock (ongoing), Spinner (loading)
 
 **Spacing**:
 - Container max-width: 1280px with px-6 (mobile) / px-8 (tablet) / px-12 (desktop)
