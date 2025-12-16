@@ -12,17 +12,20 @@ const carouselImages = [
   {
     gradient: 'from-primary/90 via-primary/70 to-primary/50',
     title: 'Éducation de qualité',
-    description: 'Offrir une éducation accessible à tous les enfants'
+    description: 'Offrir une éducation accessible à tous les enfants',
+    image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1600&h=900&fit=crop&q=80'
   },
   {
     gradient: 'from-secondary/90 via-secondary/70 to-secondary/50',
     title: 'Santé maternelle',
-    description: 'Accompagner les mères et enfants pour un avenir meilleur'
+    description: 'Accompagner les mères et enfants pour un avenir meilleur',
+    image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1600&h=900&fit=crop&q=80'
   },
   {
     gradient: 'from-accent/90 via-accent/70 to-accent/50',
     title: 'Impact local',
-    description: 'Transformer les communautés par l\'autonomisation'
+    description: 'Transformer les communautés par l\'autonomisation',
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&h=900&fit=crop&q=80'
   }
 ]
 
@@ -77,8 +80,14 @@ export default function Hero({ onNavigate }: HeroProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8 }}
-            className={`absolute inset-0 bg-gradient-to-br ${carouselImages[currentSlide].gradient}`}
+            className="absolute inset-0"
           >
+            <img 
+              src={carouselImages[currentSlide].image}
+              alt={carouselImages[currentSlide].title}
+              className="absolute inset-0 w-full h-full object-cover"
+            />
+            <div className={`absolute inset-0 bg-gradient-to-br ${carouselImages[currentSlide].gradient}`} />
             <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(255,255,255,0.1),transparent_50%)]" />
             <div className="absolute inset-0 bg-[linear-gradient(45deg,transparent_48%,rgba(255,255,255,0.05)_50%,transparent_52%)] bg-[length:20px_20px]" />
           </motion.div>

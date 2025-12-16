@@ -4,8 +4,11 @@ import Projects from '@/components/Projects'
 import Volunteer from '@/components/Volunteer'
 import Donate from '@/components/Donate'
 import Contact from '@/components/Contact'
+import { useInitData } from '@/hooks/use-init-data'
 
 export default function HomePage() {
+  useInitData()
+
   const handleNavigate = (section: string) => {
     const element = document.getElementById(section)
     if (element) {

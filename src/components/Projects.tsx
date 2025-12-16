@@ -3,7 +3,8 @@ import { useKV } from '@github/spark/hooks'
 import { Card } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
-import { CheckCircle, Circle, Image as ImageIcon } from '@phosphor-icons/react'
+import { CheckCircle, Circle, Image as ImageIcon, CaretLeft, CaretRight } from '@phosphor-icons/react'
+import { Button } from '@/components/ui/button'
 
 interface Project {
   id: string
@@ -17,6 +18,83 @@ interface Project {
   year?: string
   images?: string[]
   createdAt: string
+}
+
+function ProjectImage({ project }: { project: Project }) {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0)
+  const images = project.images || []
+
+  const nextImage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setCurrentImageIndex((prev) => (prev + 1) % images.length)
+  }
+
+  const prevImage = (e: React.MouseEvent) => {
+    e.stopPropagation()
+    setCurrentImageIndex((prev) => (prev - 1 + images.length) % images.length)
+  }
+
+  if (images.length === 0) {
+    return (
+      <div className="h-48 bg-gradient-to-br from-primary to-primary/60 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
+      </div>
+    )
+  }
+
+  return (
+    <div className="h-48 relative overflow-hidden group">
+      <img
+        src={images[currentImageIndex]}
+        alt={`${project.title} - Image ${currentImageIndex + 1}`}
+        className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+      
+      {images.length > 1 && (
+        <>
+          <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+            <ImageIcon className="w-3 h-3" weight="fill" />
+            {currentImageIndex + 1} / {images.length}
+          </div>
+          
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8"
+            onClick={prevImage}
+          >
+            <CaretLeft className="w-5 h-5" weight="bold" />
+          </Button>
+          
+          <Button
+            variant="ghost"
+            size="icon"
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white opacity-0 group-hover:opacity-100 transition-opacity h-8 w-8"
+            onClick={nextImage}
+          >
+            <CaretRight className="w-5 h-5" weight="bold" />
+          </Button>
+
+          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  setCurrentImageIndex(index)
+                }}
+                className={`w-1.5 h-1.5 rounded-full transition-all ${
+                  index === currentImageIndex ? 'bg-white w-4' : 'bg-white/50 hover:bg-white/75'
+                }`}
+                aria-label={`Voir l'image ${index + 1}`}
+              />
+            ))}
+          </div>
+        </>
+      )}
+    </div>
+  )
 }
 
 export default function Projects() {
@@ -53,25 +131,7 @@ export default function Projects() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {ongoingProjects.map((project) => (
                   <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="h-48 bg-gradient-to-br from-primary to-primary/60 relative overflow-hidden">
-                      {project.images && project.images.length > 0 ? (
-                        <>
-                          <img
-                            src={project.images[0]}
-                            alt={project.title}
-                            className="w-full h-full object-cover"
-                          />
-                          {project.images.length > 1 && (
-                            <div className="absolute bottom-3 right-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                              <ImageIcon className="w-3 h-3" weight="fill" />
-                              {project.images.length}
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
-                      )}
-                    </div>
+                    <ProjectImage project={project} />
                     <div className="p-6 space-y-4">
                       <div className="flex items-start justify-between gap-2">
                         <h3 className="text-xl font-bold flex-1">{project.title}</h3>
@@ -118,25 +178,9 @@ export default function Projects() {
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 {completedProjects.map((project) => (
                   <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="h-48 bg-gradient-to-br from-secondary to-secondary/60 relative overflow-hidden">
-                      {project.images && project.images.length > 0 ? (
-                        <>
-                          <img
-                            src={project.images[0]}
-                            alt={project.title}
-                            className="w-full h-full object-cover"
-                          />
-                          {project.images.length > 1 && (
-                            <div className="absolute bottom-3 left-3 bg-black/60 backdrop-blur-sm text-white px-2 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
-                              <ImageIcon className="w-3 h-3" weight="fill" />
-                              {project.images.length}
-                            </div>
-                          )}
-                        </>
-                      ) : (
-                        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,255,255,0.1),transparent_70%)]" />
-                      )}
-                      <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1">
+                    <div className="relative">
+                      <ProjectImage project={project} />
+                      <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg">
                         <CheckCircle weight="fill" className="w-4 h-4" />
                         Terminé
                       </div>
