@@ -30,13 +30,18 @@ export default function Header({ onNavigate }: HeaderProps) {
     checkOwnership()
   }, [])
 
-  const navItems = [
+  const leftNavItems = [
     { id: 'home', label: 'Accueil', icon: House },
     { id: 'about', label: 'À Propos', icon: Users },
     { id: 'projects', label: 'Nos Projets', icon: Rocket },
+  ]
+
+  const rightNavItems = [
     { id: 'volunteer', label: 'Devenir Volontaire', icon: HandHeart },
     { id: 'contact', label: 'Contact', icon: EnvelopeSimple },
   ]
+
+  const allNavItems = [...leftNavItems, ...rightNavItems]
 
   const handleNavigate = (section: string) => {
     onNavigate(section)
@@ -48,22 +53,25 @@ export default function Header({ onNavigate }: HeaderProps) {
     setIsOpen(false)
   }
 
-  const getLogoJustifyClass = () => {
-    switch (settings.logoPosition) {
-      case 'center':
-        return 'justify-center'
-      case 'right':
-        return 'justify-end'
-      default:
-        return 'justify-start'
-    }
-  }
-
   return (
     <header className="sticky top-0 z-50 w-full border-b bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
       <div className="container mx-auto px-6 lg:px-12">
-        <div className="flex items-center justify-between" style={{ height: `${settings.headerHeight}px` }}>
-          <div className={`flex-1 hidden md:flex ${getLogoJustifyClass()}`}>
+        <div className="flex items-center justify-between gap-4" style={{ height: `${settings.headerHeight}px` }}>
+          <nav className="hidden md:flex items-center gap-2">
+            {leftNavItems.map((item) => (
+              <Button
+                key={item.id}
+                variant="ghost"
+                onClick={() => handleNavigate(item.id)}
+                className="gap-2"
+              >
+                <item.icon />
+                {item.label}
+              </Button>
+            ))}
+          </nav>
+
+          <div className="flex-shrink-0">
             <button
               onClick={() => handleNavigate('home')}
               className="flex items-center group transition-transform hover:scale-105"
@@ -72,15 +80,8 @@ export default function Header({ onNavigate }: HeaderProps) {
             </button>
           </div>
 
-          <button
-            onClick={() => handleNavigate('home')}
-            className="flex md:hidden items-center group transition-transform hover:scale-105"
-          >
-            <XalimaLogo size="md" />
-          </button>
-
           <nav className="hidden md:flex items-center gap-2">
-            {navItems.map((item) => (
+            {rightNavItems.map((item) => (
               <Button
                 key={item.id}
                 variant="ghost"
@@ -121,7 +122,7 @@ export default function Header({ onNavigate }: HeaderProps) {
                 <div className="flex items-center gap-3 pb-4 border-b">
                   <XalimaLogo size="sm" />
                 </div>
-                {navItems.map((item) => (
+                {allNavItems.map((item) => (
                   <Button
                     key={item.id}
                     variant="ghost"
