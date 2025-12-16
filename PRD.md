@@ -8,7 +8,7 @@ A modern, impactful website for Xalima, an educational nonprofit association ded
 3. **Accessible** - Intuitive navigation and inclusive design ensures everyone can engage with Xalima's mission
 
 **Complexity Level**: Light Application (multiple features with basic state)
-This is a multi-page nonprofit website with forms, dynamic content displays, and state management for navigation and user interactions, but without complex backend integrations in this prototype phase.
+This is a multi-page nonprofit website with React Router navigation, legal pages (privacy policy and legal notice), forms, dynamic content displays, and state management for navigation and user interactions.
 
 ## Essential Features
 
@@ -54,6 +54,13 @@ This is a multi-page nonprofit website with forms, dynamic content displays, and
 - **Progression**: Visit contact page → View address/phone/email → Submit contact form OR click social media links
 - **Success criteria**: Form submits successfully, contact details display clearly, social links work
 
+### Legal Pages
+- **Functionality**: Display comprehensive legal notices and privacy policy in dedicated pages
+- **Purpose**: Ensure legal compliance (RGPD/GDPR) and transparency with users
+- **Trigger**: Footer links to "Mentions Légales" or "Politique de Confidentialité"
+- **Progression**: Click footer link → Navigate to dedicated page → Read legal information → Navigate back via header
+- **Success criteria**: Pages load correctly, all legal information is complete and accessible, navigation works seamlessly
+
 ## Edge Case Handling
 - **Empty form submissions**: Display validation errors with clear messaging before allowing submission
 - **Long volunteer descriptions**: Textarea with character limit and counter to prevent overflow
@@ -61,6 +68,8 @@ This is a multi-page nonprofit website with forms, dynamic content displays, and
 - **Network delays**: Loading states for form submissions with visual feedback
 - **Mobile navigation**: Collapsible hamburger menu for smaller screens
 - **Multilingual switching**: Default to French with clear language selector (prototype shows UI structure)
+- **Direct legal page access**: Legal pages accessible directly via URL, with header navigation intact
+- **Navigation from legal pages**: Header logo and menu allow return to home page with smooth section scrolling
 
 ## Design Direction
 The design should evoke hope, empowerment, and educational excellence while maintaining warmth and approachability. Visual language should balance professionalism with human connection, using vibrant colors that represent African culture and education, combined with clean modern layouts that inspire trust and action.
@@ -104,16 +113,19 @@ Animations should create a sense of growth, progress, and forward momentum while
 - **Form + Input + Label + Textarea**: Volunteer registration and contact forms - increased padding for touch-friendliness
 - **Carousel**: Hero banner with embla-carousel-react for motivational imagery - auto-play enabled with 5s intervals
 - **Progress**: Project progress thermometers - customized with warm yellow fill and percentage labels
-- **Separator**: Visual dividers between major sections - subtle with reduced opacity
+- **Separator**: Visual dividers between major sections and footer sections - subtle with reduced opacity
 - **Sheet**: Mobile navigation menu - slides in from left with backdrop
 - **Tabs**: Toggle between completed/ongoing projects - underline indicator animation
 - **Toast (Sonner)**: Form submission confirmations and error messages - positioned top-right
+- **React Router**: Multi-page navigation with smooth transitions and scroll-to-top behavior
 
 **Customizations**:
 - Custom hero section component with overlaid text and gradient overlay on carousel images
 - Social media icon links component with hover color transitions
-- Custom footer with multi-column layout adapting to single column on mobile
+- Custom footer with multi-column layout adapting to single column on mobile, including legal page links
 - Payment method display cards (visual only in prototype) with recognizable logos
+- Legal pages with comprehensive content (RGPD-compliant privacy policy, legal notices)
+- Page-specific layouts for legal content with enhanced readability and iconography
 
 **States**:
 - **Buttons**: Default with solid fill, hover with brightness increase and scale 1.02, active with slight scale down 0.98, disabled with reduced opacity and no interaction

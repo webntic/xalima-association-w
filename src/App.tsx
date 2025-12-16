@@ -1,58 +1,71 @@
-import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { useEffect } from 'react'
 import { Toaster } from '@/components/ui/sonner'
 import Header from './components/Header'
-import Hero from './components/Hero'
-import About from './components/About'
-import Projects from './components/Projects'
-import Volunteer from './components/Volunteer'
-import Donate from './components/Donate'
-import Contact from './components/Contact'
 import Footer from './components/Footer'
+import HomePage from './pages/HomePage'
+import LegalNoticePage from './pages/LegalNoticePage'
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 
-function App() {
-  const [currentSection, setCurrentSection] = useState('home')
+function ScrollToTop() {
+  const { pathname } = useLocation()
+  
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [pathname])
+  
+  return null
+}
 
-  const scrollToSection = (sectionId: string) => {
-    setCurrentSection(sectionId)
-    const element = document.getElementById(sectionId)
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' })
+function AppContent() {
+  const navigate = useNavigate()
+  const location = useLocation()
+
+  const handleNavigate = (section: string) => {
+    if (location.pathname !== '/') {
+      navigate('/')
+      setTimeout(() => {
+        const element = document.getElementById(section)
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' })
+        }
+      }, 100)
+    } else {
+      const element = document.getElementById(section)
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth' })
+      }
     }
   }
 
+  const handleLegalNavigate = (path: string) => {
+    navigate(path)
+  }
+
   return (
-    <div className="min-h-screen">
-      <Header onNavigate={scrollToSection} currentSection={currentSection} />
+    <div className="min-h-screen flex flex-col">
+      <ScrollToTop />
+      <Header onNavigate={handleNavigate} currentSection="home" />
       
-      <main>
-        <section id="home">
-          <Hero onNavigate={scrollToSection} />
-        </section>
-        
-        <section id="about">
-          <About />
-        </section>
-        
-        <section id="projects">
-          <Projects />
-        </section>
-        
-        <section id="volunteer">
-          <Volunteer />
-        </section>
-        
-        <section id="donate">
-          <Donate />
-        </section>
-        
-        <section id="contact">
-          <Contact />
-        </section>
+      <main className="flex-1">
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/mentions-legales" element={<LegalNoticePage />} />
+          <Route path="/politique-de-confidentialite" element={<PrivacyPolicyPage />} />
+        </Routes>
       </main>
       
-      <Footer onNavigate={scrollToSection} />
+      <Footer onNavigate={handleNavigate} onLegalNavigate={handleLegalNavigate} />
       <Toaster />
     </div>
+  )
+}
+
+function App() {
+  return (
+    <Router>
+      <AppContent />
+    </Router>
   )
 }
 

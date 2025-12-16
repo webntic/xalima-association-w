@@ -1,8 +1,10 @@
 import { Separator } from '@/components/ui/separator'
 import { FacebookLogo, InstagramLogo, YoutubeLogo, TiktokLogo, Heart } from '@phosphor-icons/react'
+import { Link } from 'react-router-dom'
 
 interface FooterProps {
   onNavigate: (section: string) => void
+  onLegalNavigate?: (path: string) => void
 }
 
 export default function Footer({ onNavigate }: FooterProps) {
@@ -93,12 +95,18 @@ export default function Footer({ onNavigate }: FooterProps) {
 
         <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
           <div className="flex flex-wrap gap-4 justify-center md:justify-start">
-            <button className="hover:text-primary transition-colors">
+            <Link 
+              to="/mentions-legales" 
+              className="hover:text-primary transition-colors"
+            >
               Mentions Légales
-            </button>
-            <button className="hover:text-primary transition-colors">
+            </Link>
+            <Link 
+              to="/politique-de-confidentialite" 
+              className="hover:text-primary transition-colors"
+            >
               Politique de Confidentialité
-            </button>
+            </Link>
           </div>
           
           <div className="flex items-center gap-1">
