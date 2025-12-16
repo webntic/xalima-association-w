@@ -1,6 +1,7 @@
 import { Separator } from '@/components/ui/separator'
 import { FacebookLogo, InstagramLogo, YoutubeLogo, TiktokLogo, Heart } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
+import XalimaLogo from './XalimaLogo'
 
 interface FooterProps {
   onNavigate: (section: string) => void
@@ -28,14 +29,8 @@ export default function Footer({ onNavigate }: FooterProps) {
       <div className="container mx-auto px-6 lg:px-12 py-12">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-8">
           <div>
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-2xl font-bold text-primary-foreground">X</span>
-              </div>
-              <div className="flex flex-col items-start">
-                <span className="text-xl font-bold">Xalima</span>
-                <span className="text-xs text-muted-foreground italic">L'éducation pour tous</span>
-              </div>
+            <div className="mb-4">
+              <XalimaLogo size="sm" />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
               Association dédiée à l'éducation de qualité, la santé maternelle et infantile, 

@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { House, Users, Rocket, HandHeart, EnvelopeSimple, CurrencyDollar, List, Gauge } from '@phosphor-icons/react'
+import XalimaLogo from './XalimaLogo'
 
 interface HeaderProps {
   onNavigate: (section: string) => void
@@ -51,15 +52,9 @@ export default function Header({ onNavigate }: HeaderProps) {
         <div className="flex h-20 items-center justify-between">
           <button
             onClick={() => handleNavigate('home')}
-            className="flex items-center gap-3 group"
+            className="flex items-center group transition-transform hover:scale-105"
           >
-            <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center transition-transform group-hover:scale-105">
-              <span className="text-2xl font-bold text-primary-foreground">X</span>
-            </div>
-            <div className="flex flex-col items-start">
-              <span className="text-xl font-bold text-foreground">Xalima</span>
-              <span className="text-xs text-muted-foreground italic">L'éducation pour tous</span>
-            </div>
+            <XalimaLogo size="md" />
           </button>
 
           <nav className="hidden md:flex items-center gap-2">
@@ -102,13 +97,7 @@ export default function Header({ onNavigate }: HeaderProps) {
             <SheetContent side="left" className="w-[280px]">
               <div className="flex flex-col gap-4 mt-8">
                 <div className="flex items-center gap-3 pb-4 border-b">
-                  <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center">
-                    <span className="text-2xl font-bold text-primary-foreground">X</span>
-                  </div>
-                  <div className="flex flex-col items-start">
-                    <span className="text-lg font-bold">Xalima</span>
-                    <span className="text-xs text-muted-foreground italic">L'éducation pour tous</span>
-                  </div>
+                  <XalimaLogo size="sm" />
                 </div>
                 {navItems.map((item) => (
                   <Button

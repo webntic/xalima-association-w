@@ -13,11 +13,11 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 ## Essential Features
 
 ### Homepage Hero & Introduction
-- **Functionality**: Display mission statement "L'éducation pour tous", logo, motivational imagery carousel, and quick navigation to key sections
+- **Functionality**: Display mission statement "L'éducation pour tous", Xalima logo (custom SVG component), motivational imagery carousel, and quick navigation to key sections
 - **Purpose**: Immediately communicate Xalima's purpose and inspire visitors to explore further
 - **Trigger**: Page load
 - **Progression**: Hero loads with animation → Carousel auto-rotates → User scrolls to introduction cards → Click cards to navigate to sections
-- **Success criteria**: Hero displays correctly, carousel auto-advances, navigation cards are clickable
+- **Success criteria**: Hero displays correctly, logo renders properly, carousel auto-advances, navigation cards are clickable
 
 ### About Section (A Propos)
 - **Functionality**: Present comprehensive information about mission, objectives, and actions
@@ -134,9 +134,10 @@ Animations should create a sense of growth, progress, and forward momentum while
 - **Spinner**: Loading state indicator for admin authentication check
 
 **Customizations**:
+- Custom XalimaLogo SVG component with colorful globe and people design, matching brand identity
 - Custom hero section component with overlaid text and gradient overlay on carousel images
 - Social media icon links component with hover color transitions
-- Custom footer with multi-column layout adapting to single column on mobile, including legal page links
+- Custom footer with multi-column layout adapting to single column on mobile, including legal page links and logo
 - Payment method display cards (visual only in prototype) with recognizable logos
 - Legal pages with comprehensive content (RGPD-compliant privacy policy, legal notices)
 - Page-specific layouts for legal content with enhanced readability and iconography
