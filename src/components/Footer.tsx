@@ -1,6 +1,7 @@
 import { Separator } from '@/components/ui/separator'
 import { FacebookLogo, InstagramLogo, YoutubeLogo, TiktokLogo, Heart } from '@phosphor-icons/react'
 import { Link } from 'react-router-dom'
+import { useSiteSettings } from '@/hooks/use-site-settings'
 import XalimaLogo from './XalimaLogo'
 
 interface FooterProps {
@@ -9,6 +10,8 @@ interface FooterProps {
 }
 
 export default function Footer({ onNavigate }: FooterProps) {
+  const settings = useSiteSettings()
+  
   const quickLinks = [
     { id: 'about', label: 'À Propos' },
     { id: 'projects', label: 'Nos Projets' },
@@ -18,10 +21,10 @@ export default function Footer({ onNavigate }: FooterProps) {
   ]
 
   const socialMedia = [
-    { name: 'Facebook', icon: FacebookLogo, url: '#' },
-    { name: 'Instagram', icon: InstagramLogo, url: '#' },
-    { name: 'YouTube', icon: YoutubeLogo, url: '#' },
-    { name: 'TikTok', icon: TiktokLogo, url: '#' }
+    { name: 'Facebook', icon: FacebookLogo, url: settings.facebookUrl },
+    { name: 'Instagram', icon: InstagramLogo, url: settings.instagramUrl },
+    { name: 'YouTube', icon: YoutubeLogo, url: settings.youtubeUrl },
+    { name: 'TikTok', icon: TiktokLogo, url: settings.tiktokUrl }
   ]
 
   return (
@@ -33,8 +36,7 @@ export default function Footer({ onNavigate }: FooterProps) {
               <XalimaLogo size="sm" />
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              Association dédiée à l'éducation de qualité, la santé maternelle et infantile, 
-              et le développement durable des communautés.
+              {settings.description}
             </p>
           </div>
 
@@ -57,10 +59,9 @@ export default function Footer({ onNavigate }: FooterProps) {
           <div>
             <h3 className="font-bold mb-4">Contact</h3>
             <ul className="space-y-2 text-sm text-muted-foreground">
-              <li>123 Avenue de la République</li>
-              <li>Dakar, Sénégal</li>
-              <li className="pt-2">+221 33 XXX XX XX</li>
-              <li>contact@xalima.org</li>
+              <li>{settings.address}</li>
+              <li className="pt-2">{settings.phone}</li>
+              <li>{settings.email}</li>
             </ul>
           </div>
 
@@ -105,7 +106,7 @@ export default function Footer({ onNavigate }: FooterProps) {
           </div>
           
           <div className="flex items-center gap-1">
-            <span>© {new Date().getFullYear()} Xalima. Fait avec</span>
+            <span>© {new Date().getFullYear()} {settings.siteName}. Fait avec</span>
             <Heart weight="fill" className="w-4 h-4 text-accent" />
             <span>pour l'éducation</span>
           </div>

@@ -62,11 +62,11 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Success criteria**: Pages load correctly, all legal information is complete and accessible, navigation works seamlessly
 
 ### Admin Dashboard
-- **Functionality**: Secure admin interface for managing projects and volunteer applications, accessible only to the site owner
-- **Purpose**: Enable site owner to manage content dynamically without code changes
-- **Trigger**: Owner clicks "Admin" button in header navigation (visible only to authenticated owner)
-- **Progression**: Click Admin → Verify ownership → View dashboard overview (stats cards) → Manage projects (add/edit/delete ongoing and completed projects) → Review volunteer applications (view details, search, delete)
-- **Success criteria**: Owner-only access enforced, projects sync to public display, volunteer data displays accurately, CRUD operations work smoothly
+- **Functionality**: Secure admin interface with password protection for managing site settings, logo, projects, volunteer applications, and contact messages - accessible only to the site owner
+- **Purpose**: Enable site owner to manage all site content and settings dynamically without code changes
+- **Trigger**: Owner navigates to /admin/login → Authenticates with password → Access full admin dashboard
+- **Progression**: Navigate to /admin/login → Enter password (creates password on first use) → Access dashboard → Manage site settings (logo upload, contact info, social links) → Manage projects (add/edit/delete) → Review volunteers → Read and delete contact messages → Log out
+- **Success criteria**: Password authentication works, owner-only access enforced, all CRUD operations sync to public site, logo upload supports image files, settings update in real-time
 
 ## Edge Case Handling
 - **Empty form submissions**: Display validation errors with clear messaging before allowing submission

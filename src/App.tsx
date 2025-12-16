@@ -7,6 +7,7 @@ import HomePage from './pages/HomePage'
 import LegalNoticePage from './pages/LegalNoticePage'
 import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
 import AdminDashboard from './pages/AdminDashboard'
+import LoginPage from './pages/LoginPage'
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -55,6 +56,7 @@ function AppContent() {
           <Route path="/" element={<HomePage />} />
           <Route path="/mentions-legales" element={<LegalNoticePage />} />
           <Route path="/politique-de-confidentialite" element={<PrivacyPolicyPage />} />
+          <Route path="/admin/login" element={<LoginPage />} />
           <Route path="/admin" element={<AdminDashboard />} />
         </Routes>
       </main>

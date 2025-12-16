@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useKV } from '@github/spark/hooks'
 import { Card } from '@/components/ui/card'
-import { Users, Rocket, CheckCircle, Clock } from '@phosphor-icons/react'
+import { Users, Rocket, CheckCircle, Clock, EnvelopeSimple } from '@phosphor-icons/react'
 
 interface Project {
   id: string
@@ -18,9 +18,18 @@ interface VolunteerApplication {
   submittedAt: string
 }
 
+interface ContactMessage {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  submittedAt: string
+}
+
 export default function DashboardOverview() {
   const [projects] = useKV<Project[]>('admin-projects', [])
   const [volunteers] = useKV<VolunteerApplication[]>('volunteer-applications', [])
+  const [messages] = useKV<ContactMessage[]>('contact-messages', [])
 
   const stats = [
     {
@@ -31,23 +40,23 @@ export default function DashboardOverview() {
       gradient: 'from-primary to-primary/60'
     },
     {
+      label: 'Messages reçus',
+      value: messages?.length || 0,
+      icon: EnvelopeSimple,
+      color: 'bg-accent',
+      gradient: 'from-accent to-accent/60'
+    },
+    {
       label: 'Projets en cours',
       value: projects?.filter(p => p.status === 'ongoing').length || 0,
       icon: Clock,
-      color: 'bg-accent',
-      gradient: 'from-accent to-accent/60'
+      color: 'bg-secondary',
+      gradient: 'from-secondary to-secondary/60'
     },
     {
       label: 'Projets terminés',
       value: projects?.filter(p => p.status === 'completed').length || 0,
       icon: CheckCircle,
-      color: 'bg-secondary',
-      gradient: 'from-secondary to-secondary/60'
-    },
-    {
-      label: 'Total Projets',
-      value: projects?.length || 0,
-      icon: Rocket,
       color: 'bg-primary',
       gradient: 'from-primary/80 to-primary/40'
     }

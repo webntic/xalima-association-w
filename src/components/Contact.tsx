@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useKV } from '@github/spark/hooks'
+import { useSiteSettings } from '@/hooks/use-site-settings'
 import { Card } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -28,6 +29,7 @@ interface ContactMessage {
 }
 
 export default function Contact() {
+  const settings = useSiteSettings()
   const [messages, setMessages] = useKV<ContactMessage[]>('contact-messages', [])
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -83,28 +85,28 @@ export default function Contact() {
     {
       icon: MapPin,
       title: 'Adresse',
-      details: ['123 Avenue de la République', 'Dakar, Sénégal'],
+      details: [settings.address],
       color: 'bg-primary'
     },
     {
       icon: Phone,
       title: 'Téléphone',
-      details: ['+221 33 XXX XX XX', '+221 77 XXX XX XX'],
+      details: [settings.phone],
       color: 'bg-secondary'
     },
     {
       icon: EnvelopeSimple,
       title: 'Email',
-      details: ['contact@xalima.org', 'info@xalima.org'],
+      details: [settings.email],
       color: 'bg-accent'
     }
   ]
 
   const socialMedia = [
-    { name: 'Facebook', icon: FacebookLogo, url: '#', color: 'hover:text-blue-600' },
-    { name: 'Instagram', icon: InstagramLogo, url: '#', color: 'hover:text-pink-600' },
-    { name: 'YouTube', icon: YoutubeLogo, url: '#', color: 'hover:text-red-600' },
-    { name: 'TikTok', icon: TiktokLogo, url: '#', color: 'hover:text-black' }
+    { name: 'Facebook', icon: FacebookLogo, url: settings.facebookUrl, color: 'hover:text-blue-600' },
+    { name: 'Instagram', icon: InstagramLogo, url: settings.instagramUrl, color: 'hover:text-pink-600' },
+    { name: 'YouTube', icon: YoutubeLogo, url: settings.youtubeUrl, color: 'hover:text-red-600' },
+    { name: 'TikTok', icon: TiktokLogo, url: settings.tiktokUrl, color: 'hover:text-black' }
   ]
 
   return (
