@@ -12,6 +12,7 @@ export interface SiteSettings {
   youtubeUrl: string
   tiktokUrl: string
   logoUrl: string
+  logoSize: number
   headerHeight: number
   stripePublicKey: string
   stripeEnabled: boolean
@@ -35,6 +36,7 @@ const defaultSettings: SiteSettings = {
   youtubeUrl: 'https://youtube.com/@xalima',
   tiktokUrl: 'https://tiktok.com/@xalima',
   logoUrl: '',
+  logoSize: 48,
   headerHeight: 80,
   stripePublicKey: '',
   stripeEnabled: false,

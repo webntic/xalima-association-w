@@ -62,11 +62,11 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Success criteria**: Pages load correctly, all legal information is complete and accessible, navigation works seamlessly
 
 ### Admin Dashboard
-- **Functionality**: Secure admin interface with password protection for managing site settings, logo, header appearance, payment methods, projects, volunteer applications, and contact messages - accessible only to the site owner
+- **Functionality**: Secure admin interface with password protection for managing site settings, logo (upload and size), header appearance, payment methods, projects, volunteer applications, and contact messages - accessible only to the site owner
 - **Purpose**: Enable site owner to manage all site content, appearance, and payment configurations dynamically without code changes
 - **Trigger**: Owner navigates to /admin/login → Authenticates with password → Access full admin dashboard
-- **Progression**: Navigate to /admin/login → Enter password (creates password on first use) → Access dashboard → Manage site settings (logo upload, contact info, social links, header height) → Configure payment methods (Stripe keys, PayPal email, Orange Money/Wave numbers) → Manage projects (add/edit/delete) → Review volunteers → Read and delete contact messages → Log out
-- **Success criteria**: Password authentication works, owner-only access enforced, all CRUD operations sync to public site, logo upload supports image files, settings update in real-time, header height adjusts dynamically, payment methods enable/disable correctly with validation
+- **Progression**: Navigate to /admin/login → Enter password (creates password on first use) → Access dashboard → Manage site settings (logo upload with size control, contact info, social links, header height) → Configure payment methods (Stripe keys, PayPal email, Orange Money/Wave numbers) → Manage projects (add/edit/delete) → Review volunteers → Read and delete contact messages → Log out
+- **Success criteria**: Password authentication works, owner-only access enforced, all CRUD operations sync to public site, logo upload supports image files, logo size adjusts in real-time preview, settings update across all pages, header height adjusts dynamically, payment methods enable/disable correctly with validation
 
 ## Edge Case Handling
 - **Empty form submissions**: Display validation errors with clear messaging before allowing submission
@@ -83,6 +83,7 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **No payment methods configured**: Donation page shows helpful message when no methods are enabled
 - **Invalid payment credentials**: Admin UI validates and provides guidance for correct API key/credential formats
 - **Header height bounds**: Header height input limited to 60-200px range for usability
+- **Logo size bounds**: Logo size input limited to 20-200px range to maintain visual balance and usability
 - **Mobile money instructions**: Dialog with copyable phone numbers and step-by-step transfer instructions
 
 ## Design Direction
@@ -138,7 +139,7 @@ Animations should create a sense of growth, progress, and forward momentum while
 - **Spinner**: Loading state indicator for admin authentication check
 
 **Customizations**:
-- Custom XalimaLogo SVG component with colorful globe and people design, matching brand identity
+- Custom XalimaLogo component with dynamic sizing, supporting both default SVG logos and admin-uploaded custom logo images with adjustable height (20-200px)
 - Custom hero section component with overlaid text and gradient overlay on carousel images
 - Social media icon links component with hover color transitions
 - Custom footer with multi-column layout adapting to single column on mobile, including legal page links and logo

@@ -20,6 +20,7 @@ interface SiteSettings {
   youtubeUrl: string
   tiktokUrl: string
   logoUrl: string
+  logoSize: number
   headerHeight: number
   stripePublicKey: string
   stripeEnabled: boolean
@@ -43,6 +44,7 @@ const defaultSettings: SiteSettings = {
   youtubeUrl: 'https://youtube.com/@xalima',
   tiktokUrl: 'https://tiktok.com/@xalima',
   logoUrl: '',
+  logoSize: 48,
   headerHeight: 80,
   stripePublicKey: '',
   stripeEnabled: false,
@@ -153,7 +155,8 @@ export default function SiteSettingsManager() {
                 <img
                   src={logoPreview}
                   alt="Logo preview"
-                  className="max-h-32 w-auto object-contain rounded-lg border-2 border-border"
+                  style={{ height: `${localSettings.logoSize}px` }}
+                  className="w-auto object-contain rounded-lg border-2 border-border"
                 />
                 <Button
                   variant="destructive"
@@ -191,6 +194,27 @@ export default function SiteSettingsManager() {
                 className="hidden"
               />
             </div>
+          </div>
+
+          <div className="space-y-2 pt-4 border-t">
+            <Label htmlFor="logoSize">Taille du logo (px)</Label>
+            <div className="flex items-center gap-4">
+              <Input
+                id="logoSize"
+                type="number"
+                min="20"
+                max="200"
+                value={localSettings.logoSize}
+                onChange={(e) => handleChange('logoSize', e.target.value)}
+                className="max-w-[200px]"
+              />
+              <span className="text-sm text-muted-foreground">
+                Recommandé: 40-80px
+              </span>
+            </div>
+            <p className="text-xs text-muted-foreground mt-2">
+              Valeur actuelle: {localSettings.logoSize}px (hauteur)
+            </p>
           </div>
         </CardContent>
       </Card>
