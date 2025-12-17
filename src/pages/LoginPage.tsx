@@ -57,13 +57,38 @@ export default function LoginPage() {
     }
   }
 
+  const handleForgotPassword = async () => {
+    try {
+      const user = await window.spark.user()
+      
+      if (!user?.isOwner) {
+        toast.error('Accès refusé', {
+          description: 'Vous devez être le propriétaire de l\'application.'
+        })
+        return
+      }
+
+      await window.spark.kv.delete('admin-password')
+      toast.success('Mot de passe réinitialisé', {
+        description: 'Vous pouvez maintenant créer un nouveau mot de passe en vous connectant.'
+      })
+    } catch (error) {
+      toast.error('Erreur', {
+        description: 'Une erreur est survenue lors de la réinitialisation.'
+      })
+    }
+  }
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-muted/30 p-4">
       <Card className="w-full max-w-md">
         <CardHeader className="space-y-4">
-          <div className="flex justify-center">
+          <button 
+            onClick={() => navigate('/')}
+            className="flex justify-center group transition-transform hover:scale-105"
+          >
             <XalimaLogo size="lg" />
-          </div>
+          </button>
           <div className="text-center">
             <CardTitle className="text-2xl">Connexion Admin</CardTitle>
             <CardDescription className="mt-2">
@@ -106,6 +131,15 @@ export default function LoginPage() {
                 </>
               )}
             </Button>
+            <div className="text-center">
+              <button
+                type="button"
+                onClick={handleForgotPassword}
+                className="text-sm text-muted-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
+              >
+                Mot de passe oublié ?
+              </button>
+            </div>
           </form>
         </CardContent>
       </Card>

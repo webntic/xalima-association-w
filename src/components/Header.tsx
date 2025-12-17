@@ -49,8 +49,8 @@ export default function Header({ onNavigate }: HeaderProps) {
     setIsOpen(false)
   }
 
-  const handleAdminClick = () => {
-    navigate('/admin')
+  const handleLoginClick = () => {
+    navigate('/admin/login')
     setIsOpen(false)
   }
 
@@ -93,16 +93,6 @@ export default function Header({ onNavigate }: HeaderProps) {
                 {item.label}
               </Button>
             ))}
-            {isOwner && (
-              <Button
-                variant="outline"
-                onClick={handleAdminClick}
-                className="gap-2"
-              >
-                <Gauge />
-                Admin
-              </Button>
-            )}
             <Button
               onClick={() => handleNavigate('donate')}
               className="ml-4 gap-2 bg-accent hover:bg-accent/90"
@@ -110,6 +100,16 @@ export default function Header({ onNavigate }: HeaderProps) {
               <CurrencyDollar weight="fill" />
               Faire un don
             </Button>
+            {isOwner && (
+              <Button
+                variant="outline"
+                onClick={handleLoginClick}
+                className="gap-2"
+              >
+                <Gauge />
+                Connexion
+              </Button>
+            )}
           </nav>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -134,16 +134,6 @@ export default function Header({ onNavigate }: HeaderProps) {
                     {item.label}
                   </Button>
                 ))}
-                {isOwner && (
-                  <Button
-                    variant="outline"
-                    onClick={handleAdminClick}
-                    className="justify-start gap-3 h-12"
-                  >
-                    <Gauge className="h-5 w-5" />
-                    Admin
-                  </Button>
-                )}
                 <Button
                   onClick={() => handleNavigate('donate')}
                   className="gap-3 h-12 bg-accent hover:bg-accent/90 mt-4"
@@ -151,6 +141,16 @@ export default function Header({ onNavigate }: HeaderProps) {
                   <CurrencyDollar weight="fill" />
                   Faire un don
                 </Button>
+                {isOwner && (
+                  <Button
+                    variant="outline"
+                    onClick={handleLoginClick}
+                    className="justify-start gap-3 h-12"
+                  >
+                    <Gauge className="h-5 w-5" />
+                    Connexion
+                  </Button>
+                )}
               </div>
             </SheetContent>
           </Sheet>
