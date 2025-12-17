@@ -5,6 +5,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Progress } from '@/components/ui/progress'
 import { CheckCircle, Circle, Image as ImageIcon, CaretLeft, CaretRight } from '@phosphor-icons/react'
 import { Button } from '@/components/ui/button'
+import { motion, AnimatePresence } from 'framer-motion'
 
 interface Project {
   id: string
@@ -105,119 +106,237 @@ export default function Projects() {
   const completedProjects = adminProjects?.filter(p => p.status === 'completed') || []
 
   return (
-    <div className="py-24 bg-muted/30">
-      <div className="container mx-auto px-6 lg:px-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Nos Projets</h2>
-          <p className="text-xl text-muted-foreground max-w-2xl mx-auto">
+    <div className="py-24 lg:py-32 bg-gradient-to-b from-muted/30 via-background to-muted/20 relative overflow-hidden">
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_30%,rgba(3,169,244,0.05),transparent_50%)]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_70%,rgba(224,30,99,0.05),transparent_50%)]" />
+      
+      <div className="container mx-auto px-6 lg:px-12 relative">
+        <motion.div 
+          className="text-center mb-16"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-100px' }}
+          transition={{ duration: 0.8 }}
+        >
+          <motion.h2 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 tracking-tight"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            Nos Projets
+          </motion.h2>
+          <motion.p 
+            className="text-xl md:text-2xl text-muted-foreground max-w-3xl mx-auto"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+          >
             Découvrez nos réalisations et nos initiatives en cours pour transformer des vies
-          </p>
-        </div>
+          </motion.p>
+        </motion.div>
 
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-12">
-            <TabsTrigger value="ongoing" className="gap-2">
-              <Circle weight="fill" className="w-4 h-4" />
-              En Cours ({ongoingProjects.length})
-            </TabsTrigger>
-            <TabsTrigger value="completed" className="gap-2">
-              <CheckCircle weight="fill" className="w-4 h-4" />
-              Réalisés ({completedProjects.length})
-            </TabsTrigger>
-          </TabsList>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.6 }}
+          >
+            <TabsList className="grid w-full max-w-md mx-auto grid-cols-2 mb-16 h-14 p-1.5 bg-muted/80 backdrop-blur-sm">
+              <TabsTrigger 
+                value="ongoing" 
+                className="gap-2 text-base font-semibold data-[state=active]:bg-primary data-[state=active]:text-primary-foreground transition-all"
+              >
+                <Circle weight="fill" className="w-4 h-4" />
+                En Cours ({ongoingProjects.length})
+              </TabsTrigger>
+              <TabsTrigger 
+                value="completed" 
+                className="gap-2 text-base font-semibold data-[state=active]:bg-secondary data-[state=active]:text-secondary-foreground transition-all"
+              >
+                <CheckCircle weight="fill" className="w-4 h-4" />
+                Réalisés ({completedProjects.length})
+              </TabsTrigger>
+            </TabsList>
+          </motion.div>
 
           <TabsContent value="ongoing" className="space-y-8">
-            {ongoingProjects.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {ongoingProjects.map((project) => (
-                  <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <ProjectImage project={project} />
-                    <div className="p-6 space-y-4">
-                      <div className="flex items-start justify-between gap-2">
-                        <h3 className="text-xl font-bold flex-1">{project.title}</h3>
-                        <div className="flex items-center gap-1 bg-primary/10 px-3 py-1 rounded-full">
-                          <Circle weight="fill" className="w-3 h-3 text-primary animate-pulse" />
-                          <span className="text-xs font-semibold text-primary">En cours</span>
-                        </div>
-                      </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {project.description}
-                      </p>
-                      {project.progress !== undefined && (
-                        <div className="space-y-3 pt-4 border-t">
-                          <div className="flex items-center justify-between text-sm">
-                            <span className="font-semibold">Progression</span>
-                            <span className="text-2xl font-bold" style={{ color: 'oklch(0.85 0.15 85)' }}>
-                              {project.progress}%
-                            </span>
+            <AnimatePresence mode="wait">
+              {ongoingProjects.length > 0 ? (
+                <motion.div 
+                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {ongoingProjects.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-50px' }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <motion.div
+                        whileHover={{ y: -8, scale: 1.02 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                      >
+                        <Card className="overflow-hidden hover:shadow-2xl transition-all border-2 border-transparent hover:border-primary/20 h-full group">
+                          <div className="relative overflow-hidden">
+                            <ProjectImage project={project} />
+                            <div className="absolute inset-0 bg-gradient-to-t from-primary/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           </div>
-                          <Progress value={project.progress} className="h-2" style={{ 
-                            backgroundColor: 'oklch(0.90 0.05 85)',
-                          }} />
-                          {project.funds && project.goal && (
-                            <div className="flex items-center justify-between text-sm pt-2">
-                              <span className="text-muted-foreground">Collecté: <strong>{project.funds}</strong></span>
-                              <span className="text-muted-foreground">Objectif: <strong>{project.goal}</strong></span>
+                          <div className="p-6 space-y-4">
+                            <div className="flex items-start justify-between gap-2">
+                              <h3 className="text-xl font-bold flex-1 group-hover:text-primary transition-colors">{project.title}</h3>
+                              <motion.div 
+                                className="flex items-center gap-1 bg-gradient-to-r from-primary/20 to-primary/10 px-3 py-1.5 rounded-full"
+                                animate={{ scale: [1, 1.05, 1] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                              >
+                                <Circle weight="fill" className="w-3 h-3 text-primary animate-pulse" />
+                                <span className="text-xs font-semibold text-primary">En cours</span>
+                              </motion.div>
                             </div>
-                          )}
-                        </div>
-                      )}
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12 text-muted-foreground">
-                <p>Aucun projet en cours pour le moment</p>
-              </div>
-            )}
+                            <p className="text-muted-foreground text-sm leading-relaxed">
+                              {project.description}
+                            </p>
+                            {project.progress !== undefined && (
+                              <div className="space-y-3 pt-4 border-t border-border/50">
+                                <div className="flex items-center justify-between text-sm">
+                                  <span className="font-semibold">Progression</span>
+                                  <motion.span 
+                                    className="text-3xl font-bold bg-gradient-to-r from-accent to-accent/80 bg-clip-text text-transparent"
+                                    initial={{ scale: 1 }}
+                                    whileInView={{ scale: [1, 1.1, 1] }}
+                                    viewport={{ once: true }}
+                                    transition={{ duration: 0.5, delay: 0.3 }}
+                                  >
+                                    {project.progress}%
+                                  </motion.span>
+                                </div>
+                                <motion.div
+                                  initial={{ scaleX: 0 }}
+                                  whileInView={{ scaleX: 1 }}
+                                  viewport={{ once: true }}
+                                  transition={{ duration: 1, delay: 0.4 }}
+                                  style={{ originX: 0 }}
+                                >
+                                  <Progress value={project.progress} className="h-2.5 bg-muted" />
+                                </motion.div>
+                                {project.funds && project.goal && (
+                                  <div className="flex items-center justify-between text-sm pt-2">
+                                    <span className="text-muted-foreground">Collecté: <strong className="text-foreground">{project.funds}</strong></span>
+                                    <span className="text-muted-foreground">Objectif: <strong className="text-foreground">{project.goal}</strong></span>
+                                  </div>
+                                )}
+                              </div>
+                            )}
+                          </div>
+                        </Card>
+                      </motion.div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div 
+                  className="text-center py-20"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                >
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-muted mb-4">
+                    <Circle className="w-10 h-10 text-muted-foreground" />
+                  </div>
+                  <p className="text-muted-foreground text-lg">Aucun projet en cours pour le moment</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </TabsContent>
 
           <TabsContent value="completed" className="space-y-8">
-            {completedProjects.length > 0 ? (
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                {completedProjects.map((project) => (
-                  <Card key={project.id} className="overflow-hidden hover:shadow-xl transition-shadow">
-                    <div className="relative">
-                      <ProjectImage project={project} />
-                      <div className="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold flex items-center gap-1 shadow-lg">
-                        <CheckCircle weight="fill" className="w-4 h-4" />
-                        Terminé
-                      </div>
-                    </div>
-                    <div className="p-6 space-y-4">
-                      <div>
-                        {project.year && (
-                          <div className="flex items-center gap-2 mb-2">
-                            <span className="text-xs font-semibold text-muted-foreground bg-muted px-2 py-1 rounded">
-                              {project.year}
-                            </span>
+            <AnimatePresence mode="wait">
+              {completedProjects.length > 0 ? (
+                <motion.div 
+                  className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                >
+                  {completedProjects.map((project, index) => (
+                    <motion.div
+                      key={project.id}
+                      initial={{ opacity: 0, y: 30 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      viewport={{ once: true, margin: '-50px' }}
+                      transition={{ duration: 0.6, delay: index * 0.1 }}
+                    >
+                      <motion.div
+                        whileHover={{ y: -8, scale: 1.02 }}
+                        transition={{ type: 'spring', stiffness: 300, damping: 20 }}
+                      >
+                        <Card className="overflow-hidden hover:shadow-2xl transition-all border-2 border-transparent hover:border-secondary/20 h-full group">
+                          <div className="relative overflow-hidden">
+                            <ProjectImage project={project} />
+                            <div className="absolute top-4 right-4 bg-gradient-to-r from-green-500 to-green-600 text-white px-4 py-1.5 rounded-full text-xs font-semibold flex items-center gap-1.5 shadow-lg">
+                              <CheckCircle weight="fill" className="w-4 h-4" />
+                              Terminé
+                            </div>
+                            <div className="absolute inset-0 bg-gradient-to-t from-green-500/30 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                           </div>
-                        )}
-                        <h3 className="text-xl font-bold mb-2">{project.title}</h3>
-                      </div>
-                      <p className="text-muted-foreground text-sm leading-relaxed">
-                        {project.description}
-                      </p>
-                      {project.impact && (
-                        <div className="pt-4 border-t">
-                          <div className="bg-green-50 border border-green-200 rounded-lg p-3">
-                            <p className="text-sm font-semibold text-green-700 flex items-center gap-2">
-                              <CheckCircle weight="fill" className="w-5 h-5" />
-                              {project.impact}
+                          <div className="p-6 space-y-4">
+                            <div>
+                              {project.year && (
+                                <div className="flex items-center gap-2 mb-2">
+                                  <span className="text-xs font-semibold text-muted-foreground bg-gradient-to-r from-muted to-muted/50 px-3 py-1 rounded-full">
+                                    {project.year}
+                                  </span>
+                                </div>
+                              )}
+                              <h3 className="text-xl font-bold mb-2 group-hover:text-secondary transition-colors">{project.title}</h3>
+                            </div>
+                            <p className="text-muted-foreground text-sm leading-relaxed">
+                              {project.description}
                             </p>
+                            {project.impact && (
+                              <motion.div 
+                                className="pt-4 border-t border-border/50"
+                                initial={{ opacity: 0, y: 10 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.4, delay: 0.2 }}
+                              >
+                                <div className="bg-gradient-to-r from-green-50 to-green-50/50 border-2 border-green-200/50 rounded-xl p-4 hover:border-green-300/70 transition-colors">
+                                  <p className="text-sm font-semibold text-green-700 flex items-center gap-2">
+                                    <CheckCircle weight="fill" className="w-5 h-5 flex-shrink-0" />
+                                    <span>{project.impact}</span>
+                                  </p>
+                                </div>
+                              </motion.div>
+                            )}
                           </div>
-                        </div>
-                      )}
-                    </div>
-                  </Card>
-                ))}
-              </div>
-            ) : (
-              <div className="text-center py-12 text-muted-foreground">
-                <p>Aucun projet terminé pour le moment</p>
-              </div>
-            )}
+                        </Card>
+                      </motion.div>
+                    </motion.div>
+                  ))}
+                </motion.div>
+              ) : (
+                <motion.div 
+                  className="text-center py-20"
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                >
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-muted mb-4">
+                    <CheckCircle className="w-10 h-10 text-muted-foreground" />
+                  </div>
+                  <p className="text-muted-foreground text-lg">Aucun projet terminé pour le moment</p>
+                </motion.div>
+              )}
+            </AnimatePresence>
           </TabsContent>
         </Tabs>
       </div>

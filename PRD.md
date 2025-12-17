@@ -118,7 +118,7 @@ Typography should be modern, highly readable, and convey both warmth and profess
 - Buttons/CTAs: Plus Jakarta Sans SemiBold / 16px / slight letter spacing (0.01em)
 
 ## Animations
-Animations should create a sense of growth, progress, and forward momentum while maintaining subtlety. Use gentle fade-ins for content sections on scroll, smooth transitions for carousel slides (800ms ease), progress bar fills with spring physics for project thermometers, and slight scale transforms on hover for interactive elements (buttons grow 1.02x). Volunteer and contact form submissions should include a satisfying checkmark animation. All animations respect reduced-motion preferences.
+Le site utilise Framer Motion pour créer une expérience moderne et dynamique avec des animations fluides et engageantes. Le Hero intègre un effet de parallaxe au scroll, des transitions d'images sophistiquées avec zoom progressif (scale 1.1), des particules flottantes subtiles pour la profondeur, et des dégradés de motifs animés en arrière-plan. Les cards de navigation rapide ont des animations de hover avancées avec transformations 3D (translate-y: -8px, scale: 1.02), rotations d'icônes, et des dégradés révélés au survol. Toutes les sections utilisent whileInView pour révéler le contenu progressivement pendant le scroll avec des délais échelonnés créant un effet de cascade. Les projets affichent des barres de progression animées avec scaleX et des badges de statut avec des effets de pulse. Le Footer contient des blobs de couleur animés en arrière-plan avec mouvement infini, des icônes sociales avec rotation au hover, et un cœur pulsant. Toutes les interactions respectent les préférences de réduction de mouvement pour l'accessibilité.
 
 ## Component Selection
 
