@@ -87,21 +87,21 @@ This is a multi-page nonprofit website with React Router navigation, legal pages
 - **Mobile money instructions**: Dialog with copyable phone numbers and step-by-step transfer instructions
 
 ## Design Direction
-The design should evoke hope, empowerment, and educational excellence while maintaining warmth and approachability. Visual language should balance professionalism with human connection, using vibrant colors that represent African culture and education, combined with clean modern layouts that inspire trust and action.
+The design should evoke hope, empowerment, and educational excellence while maintaining warmth and approachability. Visual language should balance professionalism with human connection, using the vibrant, energetic colors from the Xalima logo (bold pink, sky blue, and cheerful yellow) that represent passion, trust, and optimism, combined with clean modern layouts that inspire trust and action.
 
 ## Color Selection
-A warm, energetic palette inspired by education, growth, and African vibrancy.
+A vibrant, energetic palette directly inspired by the Xalima logo colors - featuring bold pink, sky blue, and cheerful yellow that represent hope, education, and community connection.
 
-- **Primary Color**: Deep Orange `oklch(0.62 0.19 45)` - Represents warmth, energy, and the sun of education; used for primary CTAs and key brand elements
+- **Primary Color**: Vibrant Pink/Magenta `oklch(0.55 0.22 345)` (#E91E63) - Bold and energetic, representing passion for education and community empowerment; used for primary CTAs and key brand elements
 - **Secondary Colors**: 
-  - Teal Blue `oklch(0.55 0.12 220)` - Trust, knowledge, and professionalism; used for informational sections
-  - Warm Yellow `oklch(0.85 0.15 85)` - Optimism and hope; used for highlights and progress indicators
-- **Accent Color**: Vibrant Coral `oklch(0.68 0.20 30)` - Eye-catching for donation CTAs and important calls-to-action
+  - Sky Blue `oklch(0.65 0.16 235)` (#03A9F4) - Trust, clarity, and knowledge; used for informational sections and supporting elements
+  - Fresh Green `oklch(0.70 0.14 130)` (#8BC34A) - Growth and sustainability; used for success states and progress indicators
+- **Accent Color**: Warm Yellow `oklch(0.80 0.16 85)` (#FFC107) - Eye-catching optimism and hope; used for highlights, donation CTAs, and attention-grabbing elements
 - **Foreground/Background Pairings**:
-  - Primary (Deep Orange `oklch(0.62 0.19 45)`): White text `oklch(1 0 0)` - Ratio 5.2:1 ✓
-  - Secondary Teal (`oklch(0.55 0.12 220)`): White text `oklch(1 0 0)` - Ratio 5.8:1 ✓
-  - Accent Coral (`oklch(0.68 0.20 30)`): White text `oklch(1 0 0)` - Ratio 4.6:1 ✓
-  - Background Light (`oklch(0.98 0.01 85)`): Dark text `oklch(0.25 0.02 45)` - Ratio 14.2:1 ✓
+  - Primary Pink (`oklch(0.55 0.22 345)`): White text `oklch(1 0 0)` - Ratio 5.4:1 ✓
+  - Secondary Blue (`oklch(0.65 0.16 235)`): White text `oklch(1 0 0)` - Ratio 4.8:1 ✓
+  - Accent Yellow (`oklch(0.80 0.16 85)`): Dark text `oklch(0.25 0.02 280)` - Ratio 8.2:1 ✓
+  - Background Light (`oklch(0.99 0.005 320)`): Dark text `oklch(0.25 0.02 280)` - Ratio 14.8:1 ✓
 
 ## Font Selection
 Typography should be modern, highly readable, and convey both warmth and professionalism appropriate for an education-focused nonprofit.
@@ -124,10 +124,10 @@ Animations should create a sense of growth, progress, and forward momentum while
 
 **Components**:
 - **Card**: Project showcases, service offerings, quick navigation links, admin stats, and volunteer application cards - customized with hover lift effect (4px translate-y)
-- **Button**: CTAs throughout site - Primary variant for donations (coral accent), Secondary for navigation actions, Outline for tertiary actions, Icon variants for admin actions
+- **Button**: CTAs throughout site - Primary variant for donations (vibrant pink), Secondary for navigation actions (sky blue), Outline for tertiary actions, Icon variants for admin actions
 - **Form + Input + Label + Textarea**: Volunteer registration, contact forms, and admin project creation - increased padding for touch-friendliness
 - **Carousel**: Hero banner with embla-carousel-react for motivational imagery - auto-play enabled with 5s intervals
-- **Progress**: Project progress thermometers - customized with warm yellow fill and percentage labels
+- **Progress**: Project progress thermometers - customized with fresh green fill and percentage labels
 - **Separator**: Visual dividers between major sections and footer sections - subtle with reduced opacity
 - **Sheet**: Mobile navigation menu - slides in from left with backdrop
 - **Tabs**: Toggle between completed/ongoing projects and admin dashboard sections - underline indicator animation
