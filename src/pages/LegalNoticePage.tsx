@@ -28,8 +28,8 @@ export default function LegalNoticePage() {
                 <Globe className="text-primary mt-1" size={20} />
                 <div>
                   <p className="font-semibold text-foreground">Siège social</p>
-                  <p>[Adresse complète à compléter]</p>
-                  <p>[Code postal] [Ville], [Pays]</p>
+                  <p>28 Rue De L'amiral Hamelin</p>
+                  <p>75016 Paris, France</p>
                 </div>
               </div>
               
@@ -45,7 +45,7 @@ export default function LegalNoticePage() {
                 <Phone className="text-primary mt-1" size={20} />
                 <div>
                   <p className="font-semibold text-foreground">Téléphone</p>
-                  <p>[Numéro à compléter]</p>
+                  <p>06 59 55 39 66</p>
                 </div>
               </div>
             </div>
@@ -56,8 +56,8 @@ export default function LegalNoticePage() {
               2. Directeur de la publication
             </h2>
             <div className="bg-card p-6 rounded-lg border border-border">
-              <p>[Nom du président ou directeur de l'association]</p>
-              <p className="text-sm mt-2">En qualité de Président(e) de l'association Xalima</p>
+              <p className="font-semibold text-foreground">Papa Diouldé FEDHIOR</p>
+              <p className="text-sm mt-2">Président de l'association Xalima</p>
             </div>
           </section>
 
@@ -66,14 +66,13 @@ export default function LegalNoticePage() {
               3. Hébergement du site
             </h2>
             <div className="bg-card p-6 rounded-lg border border-border">
-              <p className="font-semibold text-foreground mb-2">GitHub Pages</p>
-              <p>GitHub, Inc.</p>
-              <p>88 Colin P Kelly Jr St</p>
-              <p>San Francisco, CA 94107</p>
-              <p>États-Unis</p>
+              <p className="font-semibold text-foreground mb-2">LWS</p>
+              <p>10 Rue de Penthièvre</p>
+              <p>75008 Paris</p>
+              <p>France</p>
               <p className="mt-2">
-                <a href="https://github.com" className="text-primary hover:underline">
-                  https://github.com
+                <a href="https://lws.fr" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
+                  https://lws.fr
                 </a>
               </p>
             </div>
