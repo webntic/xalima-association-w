@@ -173,3 +173,25 @@ Animations should create a sense of growth, progress, and forward momentum while
 - Form inputs: full width on mobile, maintain touch-friendly 44px minimum height
 - Footer: stack columns vertically on mobile, horizontal grid on desktop
 - Carousel controls: larger touch targets on mobile (48px)
+
+## Configuration des Paiements
+
+### PayPal
+Pour configurer PayPal correctement :
+1. Créez ou connectez-vous à votre compte PayPal
+2. Activez PayPal.me sur votre compte (gratuit)
+3. Choisissez votre nom d'utilisateur PayPal.me (exemple: "xalima")
+4. Dans l'admin du site, activez PayPal et entrez UNIQUEMENT votre nom d'utilisateur (sans @paypal.me)
+5. Le système génèrera automatiquement le lien: `https://www.paypal.com/paypalme/[votre-nom]/[montant]EUR`
+
+**Important**: N'entrez PAS votre email PayPal, mais bien votre nom d'utilisateur PayPal.me
+
+### Stripe
+1. Créez un compte sur stripe.com
+2. Récupérez votre clé publique (pk_test_... pour test, pk_live_... pour production)
+3. Dans l'admin, activez Stripe et collez votre clé publique
+
+### Orange Money & Wave
+1. Entrez le numéro de téléphone associé à votre compte
+2. Format: +221 XX XXX XX XX
+3. Les donateurs recevront des instructions pour effectuer le transfert manuellement

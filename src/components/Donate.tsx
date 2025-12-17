@@ -69,7 +69,7 @@ export default function Donate() {
       return
     }
 
-    const paypalUrl = `https://www.paypal.com/paypalme/${settings.paypalEmail.split('@')[0]}/${amount}EUR`
+    const paypalUrl = `https://www.paypal.com/paypalme/${settings.paypalEmail}/${amount}EUR`
     toast.info('Redirection vers PayPal...', {
       description: `Montant: ${amount}€`
     })

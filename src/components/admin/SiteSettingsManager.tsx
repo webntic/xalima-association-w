@@ -525,14 +525,17 @@ export default function SiteSettingsManager() {
             </div>
             {localSettings.paypalEnabled && (
               <div className="space-y-2">
-                <Label htmlFor="paypalEmail">Email PayPal</Label>
+                <Label htmlFor="paypalEmail">Nom d'utilisateur PayPal.me</Label>
                 <Input
                   id="paypalEmail"
-                  type="email"
+                  type="text"
                   value={localSettings.paypalEmail}
                   onChange={(e) => handleChange('paypalEmail', e.target.value)}
-                  placeholder="contact@xalima.org"
+                  placeholder="xalima"
                 />
+                <p className="text-xs text-muted-foreground">
+                  Entrez uniquement votre nom d'utilisateur PayPal.me (sans @paypal.me). Exemple: si votre lien est paypal.me/xalima, entrez "xalima"
+                </p>
               </div>
             )}
           </div>
