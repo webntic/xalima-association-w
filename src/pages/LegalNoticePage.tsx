@@ -1,12 +1,19 @@
 import { Building, Envelope, Phone, Globe } from '@phosphor-icons/react'
+import SEO from '@/components/SEO'
 
 export default function LegalNoticePage() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-6 py-24">
-        <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
-          Mentions Légales
-        </h1>
+    <>
+      <SEO
+        title="Mentions Légales | Xalima"
+        description="Mentions légales de l'association Xalima. Informations sur l'éditeur du site, le directeur de publication et l'hébergement."
+        noindex={true}
+      />
+      <div className="min-h-screen bg-background">
+        <div className="max-w-4xl mx-auto px-6 py-24">
+          <h1 className="text-4xl md:text-5xl font-bold text-foreground mb-8">
+            Mentions Légales
+          </h1>
         
         <div className="space-y-8 text-foreground/80">
           <section>
@@ -171,5 +178,6 @@ export default function LegalNoticePage() {
         </div>
       </div>
     </div>
+    </>
   )
 }

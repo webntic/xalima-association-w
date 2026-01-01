@@ -1,15 +1,22 @@
 import { Shield, Database, Eye, Lock, UserCheck, Cookie } from '@phosphor-icons/react'
+import SEO from '@/components/SEO'
 
 export default function PrivacyPolicyPage() {
   return (
-    <div className="min-h-screen bg-background">
-      <div className="max-w-4xl mx-auto px-6 py-24">
-        <div className="flex items-center gap-3 mb-8">
-          <Shield className="text-primary" size={40} />
-          <h1 className="text-4xl md:text-5xl font-bold text-foreground">
-            Politique de Confidentialité
-          </h1>
-        </div>
+    <>
+      <SEO
+        title="Politique de Confidentialité | Xalima"
+        description="Politique de confidentialité de l'association Xalima. Découvrez comment nous protégeons vos données personnelles."
+        noindex={true}
+      />
+      <div className="min-h-screen bg-background">
+        <div className="max-w-4xl mx-auto px-6 py-24">
+          <div className="flex items-center gap-3 mb-8">
+            <Shield className="text-primary" size={40} />
+            <h1 className="text-4xl md:text-5xl font-bold text-foreground">
+              Politique de Confidentialité
+            </h1>
+          </div>
         
         <div className="space-y-8 text-foreground/80">
           <div className="bg-primary/10 border border-primary/20 rounded-lg p-6">
@@ -369,5 +376,6 @@ export default function PrivacyPolicyPage() {
         </div>
       </div>
     </div>
+    </>
   )
 }

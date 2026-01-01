@@ -10,7 +10,9 @@ export default function About() {
       description: 'Améliorer la santé et le bien-être des mères et des enfants dans nos communautés.',
       gradient: 'from-pink-500/20 to-pink-500/5',
       iconBg: 'bg-gradient-to-br from-pink-500 to-pink-600',
-      delay: 0.1
+      delay: 0.1,
+      image: 'https://images.unsplash.com/photo-1631815588090-d4bfec5b1ccb?w=800&h=600&fit=crop&q=80',
+      imageAlt: 'Médecin examinant un bébé en Afrique, soins de santé maternelle et infantile'
     },
     {
       icon: Target,
@@ -18,7 +20,9 @@ export default function About() {
       description: 'Garantir un accès équitable à des soins de santé et une éducation de qualité.',
       gradient: 'from-secondary/20 to-secondary/5',
       iconBg: 'bg-gradient-to-br from-secondary to-secondary/80',
-      delay: 0.2
+      delay: 0.2,
+      image: 'https://images.unsplash.com/photo-1576765608535-5f04d1e3f289?w=800&h=600&fit=crop&q=80',
+      imageAlt: 'Professionnel de santé africain avec stéthoscope, symbolisant des soins de qualité'
     },
     {
       icon: Target,
@@ -26,7 +30,9 @@ export default function About() {
       description: 'Promouvoir une éducation qui favorise le développement durable et l\'autonomie.',
       gradient: 'from-green-500/20 to-green-500/5',
       iconBg: 'bg-gradient-to-br from-green-500 to-green-600',
-      delay: 0.3
+      delay: 0.3,
+      image: 'https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&h=600&fit=crop&q=80',
+      imageAlt: 'Paysage africain verdoyant représentant le développement durable et l\'environnement'
     }
   ]
 
@@ -201,17 +207,27 @@ export default function About() {
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
                   <Card className={`p-8 h-full hover:shadow-2xl transition-all bg-gradient-to-br ${objective.gradient} border-2 border-transparent hover:border-primary/20 relative overflow-hidden group`}>
+                    {objective.image && (
+                      <div className="absolute inset-0 opacity-0 group-hover:opacity-20 transition-opacity duration-500">
+                        <img 
+                          src={objective.image} 
+                          alt={objective.imageAlt}
+                          loading="lazy"
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                    )}
                     <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-white/10 to-transparent rounded-bl-full opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                     
                     <motion.div 
-                      className={`w-16 h-16 rounded-2xl ${objective.iconBg} flex items-center justify-center mb-6 shadow-lg`}
+                      className={`w-16 h-16 rounded-2xl ${objective.iconBg} flex items-center justify-center mb-6 shadow-lg relative z-10`}
                       whileHover={{ rotate: [0, -10, 10, -5, 5, 0], scale: 1.1 }}
                       transition={{ duration: 0.5 }}
                     >
                       <objective.icon className="w-8 h-8 text-white" weight="fill" />
                     </motion.div>
-                    <h4 className="text-xl font-bold mb-3">{objective.title}</h4>
-                    <p className="text-muted-foreground leading-relaxed">{objective.description}</p>
+                    <h4 className="text-xl font-bold mb-3 relative z-10">{objective.title}</h4>
+                    <p className="text-muted-foreground leading-relaxed relative z-10">{objective.description}</p>
                   </Card>
                 </motion.div>
               </motion.div>

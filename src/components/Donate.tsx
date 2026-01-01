@@ -189,8 +189,17 @@ export default function Donate() {
   ]
 
   return (
-    <div className="py-24 bg-gradient-to-br from-accent/5 via-background to-primary/5">
-      <div className="container mx-auto px-6 lg:px-12">
+    <div className="py-24 bg-gradient-to-br from-accent/5 via-background to-primary/5 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5">
+        <img 
+          src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?w=1920&h=1080&fit=crop&q=80" 
+          alt="Mains solidaires représentant l'aide et le don pour l'éducation"
+          loading="lazy"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background/90" />
+      <div className="container mx-auto px-6 lg:px-12 relative">
         <div className="text-center mb-12">
           <div className="w-20 h-20 rounded-2xl bg-accent/10 flex items-center justify-center mx-auto mb-6">
             <CurrencyDollar className="w-10 h-10 text-accent" weight="fill" />

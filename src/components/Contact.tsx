@@ -110,8 +110,17 @@ export default function Contact() {
   ]
 
   return (
-    <div className="py-24 bg-muted/30">
-      <div className="container mx-auto px-6 lg:px-12">
+    <div className="py-24 bg-muted/30 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5">
+        <img 
+          src="https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1920&h=1080&fit=crop&q=80" 
+          alt="Communication et connexion humaine, représentant notre disponibilité à vous écouter"
+          loading="lazy"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-muted/80 to-background/90" />
+      <div className="container mx-auto px-6 lg:px-12 relative">
         <div className="text-center mb-12">
           <h2 className="text-4xl md:text-5xl font-bold mb-6 tracking-tight">Contactez-nous</h2>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto">

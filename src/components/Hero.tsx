@@ -13,19 +13,22 @@ const carouselImages = [
     gradient: 'from-primary/90 via-primary/70 to-primary/50',
     title: 'Éducation de qualité',
     description: 'Offrir une éducation accessible à tous les enfants',
-    image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1600&h=900&fit=crop&q=80'
+    image: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=1600&h=900&fit=crop&q=80',
+    alt: 'Enfants africains étudiant dans une salle de classe, concentrés sur leurs livres et cahiers'
   },
   {
     gradient: 'from-secondary/90 via-secondary/70 to-secondary/50',
     title: 'Santé maternelle',
     description: 'Accompagner les mères et enfants pour un avenir meilleur',
-    image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1600&h=900&fit=crop&q=80'
+    image: 'https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1600&h=900&fit=crop&q=80',
+    alt: 'Mère africaine souriante tenant son bébé dans ses bras avec tendresse'
   },
   {
     gradient: 'from-accent/90 via-accent/70 to-accent/50',
     title: 'Impact local',
     description: 'Transformer les communautés par l\'autonomisation',
-    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&h=900&fit=crop&q=80'
+    image: 'https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1600&h=900&fit=crop&q=80',
+    alt: 'Groupe de femmes africaines souriantes travaillant ensemble sur un projet communautaire'
   }
 ]
 
@@ -95,7 +98,8 @@ export default function Hero({ onNavigate }: HeroProps) {
           >
             <motion.img 
               src={carouselImages[currentSlide].image}
-              alt={carouselImages[currentSlide].title}
+              alt={carouselImages[currentSlide].alt}
+              loading={currentSlide === 0 ? 'eager' : 'lazy'}
               className="absolute inset-0 w-full h-full object-cover"
               initial={{ scale: 1 }}
               animate={{ scale: 1.05 }}

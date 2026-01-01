@@ -80,8 +80,17 @@ export default function Volunteer() {
   }
 
   return (
-    <div className="py-24 bg-background">
-      <div className="container mx-auto px-6 lg:px-12">
+    <div className="py-24 bg-background relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5">
+        <img 
+          src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=1920&h=1080&fit=crop&q=80" 
+          alt="Volontaires aidant des enfants, représentant l'engagement communautaire"
+          loading="lazy"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background/95 via-background/90 to-background/95" />
+      <div className="container mx-auto px-6 lg:px-12 relative">
         <div className="text-center mb-12">
           <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center mx-auto mb-6">
             <HandHeart className="w-10 h-10 text-primary" weight="fill" />

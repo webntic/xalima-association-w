@@ -36,8 +36,17 @@ export default function Missions() {
   ]
 
   return (
-    <section id="missions" className="py-20 bg-muted/30">
-      <div className="container mx-auto px-6 lg:px-12">
+    <section id="missions" className="py-20 bg-muted/30 relative overflow-hidden">
+      <div className="absolute inset-0 opacity-5">
+        <img 
+          src="https://images.unsplash.com/photo-1509062522246-3755977927d7?w=1920&h=1080&fit=crop&q=80" 
+          alt="Enfants africains en train d'apprendre, représentant nos missions éducatives"
+          loading="lazy"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-muted/60 to-background/80" />
+      <div className="container mx-auto px-6 lg:px-12 relative">
         <div className="max-w-3xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
             Nos Missions

@@ -195,3 +195,93 @@ Pour configurer PayPal correctement :
 1. Entrez le numéro de téléphone associé à votre compte
 2. Format: +221 XX XXX XX XX
 3. Les donateurs recevront des instructions pour effectuer le transfert manuellement
+
+## SEO et Optimisation des Images
+
+### Stratégie SEO
+Le site est entièrement optimisé pour les moteurs de recherche avec une approche complète :
+
+**Meta Tags et Balises** :
+- Titre optimisé avec mots-clés principaux : "Xalima - L'éducation pour tous | Association pour l'éducation et la santé en Afrique"
+- Meta description engageante de 155 caractères
+- Meta keywords pertinents (éducation Afrique, santé maternelle, ONG, développement durable)
+- Open Graph tags pour le partage sur réseaux sociaux
+- Twitter Cards pour l'affichage sur Twitter
+- JSON-LD Schema.org (type NGO) pour les résultats enrichis Google
+
+**Composant SEO Dynamique** :
+- Composant React réutilisable pour chaque page
+- Met à jour dynamiquement title, description, keywords
+- Support des canonical URLs
+- Option noindex pour pages admin
+
+**Fichiers Essentiels** :
+- `robots.txt` : autorise l'indexation, bloque /admin
+- `sitemap.xml` : liste toutes les pages avec priorités
+- `manifest.json` : configuration PWA pour mobile
+
+**Structure Sémantique** :
+- HTML5 sémantique (header, nav, main, section, footer)
+- Hiérarchie correcte des titres (H1 unique par page)
+- Attributs ARIA pour l'accessibilité
+- Labels descriptifs sur tous les formulaires
+
+### Stratégie d'Images
+
+**Images du Carousel Hero** :
+- 3 images rotatives optimisées depuis Unsplash
+- Alt text descriptif et contextuel pour chaque image
+- Loading="eager" sur première image, "lazy" sur les suivantes
+- Images haute qualité (1600x900) avec compression optimale (q=80)
+- Overlay gradient pour assurer la lisibilité du texte
+
+**Images de Fond Décoratives** :
+- Images subtiles (opacity: 5-20%) dans chaque section majeure
+- Missions : enfants africains en apprentissage
+- About : images représentant les objectifs (santé, éducation, durabilité)
+- Donate : mains solidaires
+- Volunteer : volontaires en action
+- Contact : connexion humaine
+- Toutes avec loading="lazy" et alt text descriptif
+
+**Images de Projets** :
+- Système de galerie multi-images par projet
+- Navigation par flèches avec indicateur de position
+- Fallback gradient si aucune image n'est disponible
+- Alt text automatique avec nom du projet et numéro d'image
+
+**Optimisations Techniques** :
+- URLs Unsplash avec paramètres width, height, fit, quality
+- WebP automatique via Unsplash CDN
+- Lazy loading sur toutes les images non critiques
+- Responsive images adaptées au viewport
+
+**Accessibilité des Images** :
+- Alt text descriptif et pertinent sur toutes les images
+- Pas d'images décoratives sans alt="" approprié
+- Contraste suffisant pour le texte sur images
+- Images non essentielles masquées pour lecteurs d'écran si nécessaire
+
+### Mots-clés Cibles
+
+**Primaires** :
+- éducation Afrique
+- association humanitaire
+- santé maternelle infantile
+- ONG éducation
+- développement durable Afrique
+
+**Secondaires** :
+- volontariat international
+- don ONG
+- association Xalima
+- éducation qualité
+- autonomie élèves
+
+**Longue traîne** :
+- faire un don association éducation Afrique
+- devenir volontaire ONG éducation
+- santé maternelle Afrique association
+- projets éducatifs développement Afrique
+
+Voir `SEO-OPTIMIZATIONS.md` pour la documentation complète des optimisations SEO.
