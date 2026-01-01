@@ -19,8 +19,7 @@ export default function LegalNoticePage() {
                 <div>
                   <p className="font-semibold text-foreground">Association Xalima</p>
                   <p>Association à but non lucratif</p>
-                  <p>Numéro SIRET : [À compléter]</p>
-                  <p>Numéro RNA : [À compléter]</p>
+                  <p>Numéro RNA : W751232874</p>
                 </div>
               </div>
               
