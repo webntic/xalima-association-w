@@ -327,7 +327,7 @@ export default function PrivacyPolicyPage() {
               <div className="bg-muted/50 p-4 rounded-lg">
                 <p className="font-semibold text-foreground">Association Xalima</p>
                 <p>Email : <a href="mailto:contact@xalima.org" className="text-primary hover:underline">contact@xalima.org</a></p>
-                <p>Téléphone : [Numéro à compléter]</p>
+                <p>Téléphone : <a href="tel:+33659553966" className="text-primary hover:underline">+33 6 59 55 39 66</a></p>
               </div>
               <p className="mt-4">
                 Vous avez également le droit de déposer une réclamation auprès de la Commission 
